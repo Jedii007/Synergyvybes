@@ -6,7 +6,7 @@ import { getLatestTracks } from "@/services/appleMusic";
 import ImageSlider from "@/components/ImageSlider";
 import BlogPreview from "@/components/BlogPreview";
 import { useState, useEffect, useRef } from "react";
-import { Play, Pause, ChevronDown, ChevronUp, Instagram, Twitter, Youtube, Globe, Mail } from "lucide-react";
+import { Play, Pause, ChevronDown, ChevronUp, Instagram, Twitter, Youtube, Mail } from "lucide-react";
 import LyricsSection from "@/components/LyricsSection";
 import { songLyrics } from "@/constants/lyricsData";
 
@@ -30,15 +30,15 @@ export default function Jedii007Page() {
     const upcomingTracks = [
         {
             name: "Bad Mixes II",
-            image: "/Synergy Group 232.png",
+            image: "/Badmixescover.png",
         },
         {
             name: "New Comer",
-            image: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/8c/91/83/8c9183b0-3f9f-9f9f-9f9f-9f9f9f9f9f9f/cover.jpg",
+            image: "",
         },
         {
-            name: "Public Enemy",
-            image: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/8c/91/83/8c9183b0-3f9f-9f9f-9f9f-9f9f9f9f9f9f/cover.jpg",
+            name: "Speed-dial",
+            image: "",
         }
     ];
 
@@ -70,18 +70,18 @@ export default function Jedii007Page() {
     const displayedSongs = showAllTracks ? songs : songs.slice(0, 3);
 
     const images = [
-        {
-            src: "/Synergy Group 232.png",
-            alt: "Jedii007 - Creative Journey Image 3"
-        },
-        {
-            src: "/2024-10-30 23.06.06.jpg",
-            alt: "Jedii007"
-        },
-        {
-            src: "/4y2k.jpg",
-            alt: "Jedii007 - Creative Journey Image 2"
-        },
+      {
+        src: "/Badmixescover.png",
+        alt: "Jedii007 - Creative Journey Image 3",
+      },
+      {
+        src: "/4y2kh.jpg",
+        alt: "Jedii007",
+      },
+      {
+        src: "/up.jpg",
+        alt: "Jedii007 - Creative Journey Image 2",
+      },
     ];
 
     const handlePlay = (previewUrl: string) => {
@@ -122,7 +122,7 @@ export default function Jedii007Page() {
 
                     {/* Social Media Icons */}
                     <div className="flex items-center gap-4">
-                        <a href="#" className="text-white hover:text-[#e68531] transition-colors">
+                        <a href="" className="text-white hover:text-[#e68531] transition-colors">
                             <Instagram className="w-6 h-6" />
                         </a>
                         <a href="#" className="text-white hover:text-[#e68531] transition-colors">
@@ -130,9 +130,6 @@ export default function Jedii007Page() {
                         </a>
                         <a href="#" className="text-white hover:text-[#e68531] transition-colors">
                             <Youtube className="w-6 h-6" />
-                        </a>
-                        <a href="#" className="text-white hover:text-[#e68531] transition-colors">
-                            <Globe className="w-6 h-6" />
                         </a>
                     </div>
 

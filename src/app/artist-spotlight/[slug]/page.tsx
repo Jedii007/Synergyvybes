@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client"
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -9,20 +10,27 @@ import WorkModal from "@/components/WorkModal";
 export default function ArtistSpotlightPage() {
   const params = useParams();
   const slug = params.slug as string;
-  
+
   // Find the artist by slug
   const artist = featuredArtists.find(artist => artist.slug === slug);
-  
+
   // If artist not found, show 404
   if (!artist) {
     notFound();
   }
-  
+
   const [activeTab, setActiveTab] = useState("work");
-  
+
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedWork, setSelectedWork] = useState(artist.showcase[0]);
+
+  // Ensure the work has the correct type property
+  const defaultWork = {
+    ...artist.showcase[0],
+    type: artist.showcase[0].type as "image" | "audio"
+  };
+
+  const [selectedWork, setSelectedWork] = useState(defaultWork);
 
   return (
     <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
@@ -32,7 +40,7 @@ export default function ArtistSpotlightPage() {
         onClose={() => setIsModalOpen(false)}
         work={selectedWork}
       />
-      
+
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-16 text-center">
@@ -99,7 +107,12 @@ export default function ArtistSpotlightPage() {
                             key={index}
                             className="group relative h-64 rounded-lg overflow-hidden shadow-md cursor-pointer"
                             onClick={() => {
-                              setSelectedWork(work);
+                              // Cast the type to "image" | "audio"
+                              const typedWork = {
+                                ...work,
+                                type: work.type as "image" | "audio"
+                              };
+                              setSelectedWork(typedWork);
                               setIsModalOpen(true);
                             }}
                           >
@@ -170,7 +183,7 @@ export default function ArtistSpotlightPage() {
                   {activeTab === "interview" && artist.interview && (
                     <div>
                       <div className="relative bg-[#e68531]/10 p-6 rounded-lg mb-8">
-                        <div className="text-5xl absolute top-4 left-4 text-[#e68531]/30">"</div>
+                        <div className="text-5xl absolute top-4 left-4 text-[#e68531]/30">"YES"</div>
                         <p className="text-xl italic font-light ml-8 relative z-10">
                           {artist.interview.quote}
                         </p>

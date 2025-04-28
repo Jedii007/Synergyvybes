@@ -1,3 +1,12 @@
+// Define types for showcase items
+type ShowcaseItem = {
+  image: string;
+  title: string;
+  description: string;
+  type: "image" | "audio";
+  audioUrl?: string;
+};
+
 export const featuredArtists = [
   {
     id: 1,
@@ -131,10 +140,30 @@ export const featuredArtists = [
     slug: "maya-johnson", // URL slug for routing
     bio: "Maya Johnson is a contemporary visual artist whose work explores themes of identity, memory, and urban landscapes. Through mixed media and digital techniques, she creates immersive visual narratives that challenge conventional perspectives.",
     showcase: [
-      { image: "/jedii.jpg", title: "Urban Fragments" },
-      { image: "/jediikhodah.jpeg", title: "Digital Dreams" },
-      { image: "/IMG_8643.jpeg", title: "Memory Lanes" },
-      { image: "/Synergyvibes.png", title: "Identity Pixels" }
+      {
+        image: "/jedii.jpg",
+        title: "Urban Fragments",
+        description: "A visual exploration of urban landscapes and their impact on human perception.",
+        type: "image"
+      },
+      {
+        image: "/jediikhodah.jpeg",
+        title: "Digital Dreams",
+        description: "An immersive digital artwork that blends reality and imagination in the digital age.",
+        type: "image"
+      },
+      {
+        image: "/IMG_8643.jpeg",
+        title: "Memory Lanes",
+        description: "A reflection on how memories shape our identity and perception of the world around us.",
+        type: "image"
+      },
+      {
+        image: "/Synergyvibes.png",
+        title: "Identity Pixels",
+        description: "An examination of how digital identities are constructed and perceived in modern society.",
+        type: "image"
+      }
     ],
     portfolioLink: "https://example.com/maya",
     socialLinks: {
@@ -152,10 +181,30 @@ export const featuredArtists = [
     slug: "jamal-wright", // URL slug for routing
     bio: "Jamal Wright transforms everyday materials into thought-provoking sculptures and installations that examine social structures and environmental concerns. His work has been featured in galleries across the country.",
     showcase: [
-      { image: "/rosii.jpg", title: "Material Memory" },
-      { image: "/Instagram Downloader Image.jpg", title: "Urban Artifacts" },
-      { image: "/rosii.jpg", title: "Structural Dialogues" },
-      { image: "/Instagram Downloader Image.jpg", title: "Reclaimed Spaces" }
+      {
+        image: "/rosii.jpg",
+        title: "Material Memory",
+        description: "An exploration of how materials can embody and preserve memories of people and places.",
+        type: "image"
+      },
+      {
+        image: "/Instagram Downloader Image.jpg",
+        title: "Urban Artifacts",
+        description: "A collection of sculptures created from discarded urban materials, giving new life to forgotten objects.",
+        type: "image"
+      },
+      {
+        image: "/rosii.jpg",
+        title: "Structural Dialogues",
+        description: "An installation that examines the relationship between architectural structures and human interaction.",
+        type: "image"
+      },
+      {
+        image: "/Instagram Downloader Image.jpg",
+        title: "Reclaimed Spaces",
+        description: "A series exploring how abandoned spaces can be transformed into meaningful artistic environments.",
+        type: "image"
+      }
     ],
     portfolioLink: "https://example.com/jamal",
     socialLinks: {
