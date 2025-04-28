@@ -18,6 +18,13 @@ const saira = Saira({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Synergyvybes",
   description: "A home for creatives",
+  icons: {
+    icon: [
+      { url: '/favicon.svg' },
+      { url: '/synergySmall.png' }
+    ],
+    apple: '/synergySmall.png',
+  },
 };
 
 export default function RootLayout({
@@ -60,17 +67,7 @@ export default function RootLayout({
                             </SidebarMenuButton>
                           </Link>
                         </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <Link href="/contact" className="w-full">
-                            <SidebarMenuButton
-                              className={sidebarButtonStyles}
-                              tooltip="Contact"
-                            >
-                              <Mail className="h-8 w-8" />
-                              <span>Contact</span>
-                            </SidebarMenuButton>
-                          </Link>
-                        </SidebarMenuItem>
+                        {/* Contact link removed - now part of About page */}
                         <SidebarMenuItem>
                           <Link href="/artist-spotlight" className="w-full">
                             <SidebarMenuButton

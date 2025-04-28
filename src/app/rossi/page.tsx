@@ -121,8 +121,49 @@ export default function RossiPage() {
 
   return (
     <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
-      <audio ref={audioRef} className="hidden" controls />
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[80vh]">
+        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 text-center max-w-2xl">
+          <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-[#e68531]/20 mb-6">
+            <Image
+              src="/rosii.jpg"
+              alt="Rossi"
+              width={128}
+              height={128}
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <h1 className="text-4xl font-bold mb-2">Rossi Sbw</h1>
+          <p className="text-[#e68531] text-lg font-medium mb-6">Coming Soon</p>
+          <p className="text-gray-300 leading-relaxed mb-8">
+            We're currently working on Rossi's artist page. Check back soon to explore his music,
+            story, and creative journey. In the meantime, you can visit our other featured artists.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <a
+              href="#"
+              className="text-white hover:text-[#e68531] transition-colors"
+            >
+              <Instagram className="w-6 h-6" />
+            </a>
+            <a
+              href="#"
+              className="text-white hover:text-[#e68531] transition-colors"
+            >
+              <Twitter className="w-6 h-6" />
+            </a>
+            <a
+              href="#"
+              className="text-white hover:text-[#e68531] transition-colors"
+            >
+              <Youtube className="w-6 h-6" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Original content hidden for now */}
+      <div className="hidden">
+        <audio ref={audioRef} className="hidden" controls />
         <ImageSlider images={images} />
         <div className="mt-8 space-y-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
