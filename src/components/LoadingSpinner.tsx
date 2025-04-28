@@ -14,10 +14,10 @@ export default function LoadingSpinner() {
                 <div className="h-24 w-24 rounded-full border-t-4 border-b-4 border-[#e68531] animate-spin"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                     <Image
-                        src="/synergySmall.png"
+                        src="/loo.png"
                         alt="SYNERGY Logo"
-                        width={48}
-                        height={48}
+                        width={58}
+                        height={58}
                         className="rounded-full object-contain"
                     />
                 </div>

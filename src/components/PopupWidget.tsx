@@ -22,7 +22,7 @@ export function PopupWidget() {
         {isOpen ? (
           <X className="h-6 w-6 text-white" />
         ) : (
-          <div className="relative w-10 h-10 rounded-full overflow-hidden bg-black/20 flex items-center justify-center">
+          <div className="relative w-[10rem] h-[10rem] rounded-full overflow-hiddenflex items-center justify-center">
             <Image
               src="/loo.png"
               alt="Synergyvybes Logo"

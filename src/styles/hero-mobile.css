@@ -1,0 +1,31 @@
+/* Mobile-specific styles for the Hero component */
+@media screen and (max-width: 768px) {
+  .hero-card {
+    min-height: 400px !important;
+    height: 400px !important;
+    margin-bottom: 1rem;
+  }
+
+  .spotlight-card {
+    min-height: 400px !important;
+    height: 400px !important;
+  }
+}
+
+/* Ensure the grid layout works properly on mobile */
+@media screen and (max-width: 768px) {
+  .hero-container {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .hero-cards-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .spotlight-container {
+    width: 100% !important;
+  }
+}

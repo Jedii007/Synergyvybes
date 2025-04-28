@@ -10,7 +10,7 @@ export default function SlimSpotlightCard() {
   const artist = featuredArtists.find(artist => artist.featured) || featuredArtists[0];
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden h-[50vh] md:h-[90vh] flex flex-col">
+    <div className="bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden h-[90vh] spotlight-card flex flex-col">
       <div className="p-4 border-b border-white/10">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-[#e68531]" />

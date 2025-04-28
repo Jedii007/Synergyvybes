@@ -6,6 +6,7 @@ import { useLoading } from "@/context/LoadingContext";
 import { heroData } from "@/constants/heroData";
 import { CARD_ANIMATION_DELAY, CARD_ANIMATION_DURATION } from "@/constants/styles";
 import SlimSpotlightCard from "./SlimSpotlightCard";
+import "@/styles/hero-mobile.css";
 
 export default function Hero() {
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
@@ -35,14 +36,14 @@ export default function Hero() {
   }, [isLoading]); // Re-run when loading state changes
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4 min-h-screen w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4 min-h-screen w-full hero-container">
       {/* Main artist cards - take up 3/4 of the space */}
-      <div className="lg:col-span-3 flex flex-col md:flex-row gap-4">
+      <div className="lg:col-span-3 flex flex-col md:flex-row gap-4 hero-cards-container">
         {heroData.cards.map((card, index) => (
           <Link
             key={index}
             href={card.href}
-            className={`relative flex-1 h-[70vh] md:h-[90vh] rounded-3xl overflow-hidden transition-all duration-${CARD_ANIMATION_DURATION} hover:scale-[1.02] bg-gray-200 cursor-pointer
+            className={`relative flex-1 h-[90vh] hero-card rounded-3xl overflow-hidden transition-all duration-${CARD_ANIMATION_DURATION} hover:scale-[1.02] bg-gray-200 cursor-pointer
               ${visibleCards.includes(index)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-4'}`}
@@ -82,7 +83,7 @@ export default function Hero() {
       </div>
 
       {/* Slim spotlight card - takes up 1/4 of the space */}
-      <div className={`lg:col-span-1 transition-all duration-${CARD_ANIMATION_DURATION} ${visibleCards.length > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <div className={`lg:col-span-1 transition-all duration-${CARD_ANIMATION_DURATION} spotlight-container ${visibleCards.length > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <SlimSpotlightCard />
       </div>
     </div>
