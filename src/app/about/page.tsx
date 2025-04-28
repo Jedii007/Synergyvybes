@@ -16,20 +16,62 @@ export default function AboutPage() {
   });
 
   const [showArtistField, setShowArtistField] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({
+    success: false,
+    message: ""
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    // Reset form or show success message
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({
-      name: "",
-      email: "",
-      reason: "",
-      artistName: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'ff9892f9-0126-4bab-aecb-33e7cbdad5f5', // Replace with your actual access key
+          name: formData.name,
+          email: formData.email,
+          reason: formData.reason,
+          artistName: formData.artistName || 'N/A',
+          message: formData.message,
+          subject: `New Contact Form Submission: ${formData.reason}`,
+        })
+      });
+      
+      const result = await response.json();
+      if (result.success) {
+        setSubmitStatus({
+          success: true,
+          message: "Thank you for your message! We'll get back to you soon."
+        });
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          reason: "",
+          artistName: "",
+          message: "",
+        });
+      } else {
+        setSubmitStatus({
+          success: false,
+          message: "Something went wrong. Please try again."
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        success: false,
+        message: "An error occurred. Please try again later."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -93,7 +135,16 @@ export default function AboutPage() {
           <div className="space-y-8">
             {/* Contact Form */}
             <div>
+              {submitStatus.message && (
+                <div className={`mb-6 p-4 rounded-md ${submitStatus.success ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}`}>
+                  {submitStatus.message}
+                </div>
+              )}
+              
               <form onSubmit={handleSubmit} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 space-y-6">
+                {/* This hidden field is needed for Web3Forms to work */}
+                <input type="hidden" name="access_key" value="ff9892f9-0126-4bab-aecb-33e7cbdad5f5" />
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -194,9 +245,10 @@ export default function AboutPage() {
                 <div className="flex justify-between items-center mt-6">
                   <button
                     type="submit"
-                    className="px-6 py-3 text-white bg-[#e68531] rounded-md hover:bg-[#e68531]/90 transition-colors font-medium"
+                    disabled={isSubmitting}
+                    className={`px-6 py-3 text-white bg-[#e68531] rounded-md hover:bg-[#e68531]/90 transition-colors font-medium ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
 
                   <div className="flex items-center gap-4">

@@ -143,7 +143,7 @@ export default function Jedii007Page() {
                                         alt="Jedii007"
                                         width={192}
                                         height={192}
-                                        className="object-cover rotate-[94deg] w-full h-full"
+                                        className="object-cover w-full h-full"
                                     />
                                 </div>
                             </div>
