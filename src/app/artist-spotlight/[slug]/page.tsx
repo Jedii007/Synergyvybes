@@ -225,7 +225,7 @@ export default function ArtistSpotlightPage() {
 
         {/* Call to Action */}
         <div className="bg-gradient-to-r from-[#e68531]/90 to-[#e68531]/70 rounded-xl p-8 text-white text-center">
-          <h2 className="text-3xl font-bold mb-4">Are you an artist looking for exposure?</h2>
+          <h2 className="text-3xl font-bold mb-4">Would you like to be featured?</h2>
           <p className="max-w-2xl mx-auto mb-6">
             Apply to be featured in our Artist Spotlight Series and showcase your work to our creative community.
           </p>

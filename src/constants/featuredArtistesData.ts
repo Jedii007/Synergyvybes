@@ -13,7 +13,7 @@ export const featuredArtists = [
     name: "Jedii007",
     medium: "Music Producer & Artist",
     image: "/IMG_8643.jpeg",
-    spotlightImage: "/jediikhodah.jpeg", // Different image for the spotlight card
+    spotlightImage: "/Badmixescover.png", // Different image for the spotlight card
     featured: true,
     slug: "jedii007", // URL slug for routing
     bio: "Jedii007 is a multi-talented artist and producer from Gambia and Sierra Leone. With a unique blend of Afrobeats, R&B, and electronic music, Jedii007 creates immersive sonic experiences that transcend cultural boundaries. His work is characterized by innovative production techniques and authentic storytelling.",
