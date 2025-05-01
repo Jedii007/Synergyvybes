@@ -70,18 +70,18 @@ export default function Jedii007Page() {
     const displayedSongs = showAllTracks ? songs : songs.slice(0, 3);
 
     const images = [
-      {
-        src: "/Badmixescover.png",
-        alt: "Jedii007 - Creative Journey Image 3",
-      },
-      {
-        src: "/4y2kh.jpg",
-        alt: "Jedii007",
-      },
-      {
-        src: "/up.jpg",
-        alt: "Jedii007 - Creative Journey Image 2",
-      },
+        {
+            src: "/Badmixescover.png",
+            alt: "Jedii007 - Creative Journey Image 3",
+        },
+        {
+            src: "/4y2kh.jpg",
+            alt: "Jedii007",
+        },
+        {
+            src: "/up.jpg",
+            alt: "Jedii007 - Creative Journey Image 2",
+        },
     ];
 
     const handlePlay = (previewUrl: string) => {
@@ -107,9 +107,9 @@ export default function Jedii007Page() {
     };
 
     return (
-        <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
+        <div className="min-h-screen p-4 sm:p-20 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
             <audio ref={audioRef} className="hidden" controls />
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto px-2 sm:px-4">
                 <ImageSlider images={images} />
                 <div className="mt-8 space-y-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -147,14 +147,14 @@ export default function Jedii007Page() {
                                     />
                                 </div>
                             </div>
-                            <div className="flex-1 space-y-4">
+                            <div className="flex-1 space-y-4 max-h-[60vh] overflow-y-auto md:max-h-none md:overflow-y-visible">
                                 <div>
                                     <h2 className="text-2xl font-bold mb-2">About Jedii007</h2>
                                     <div className="space-y-4">
                                         <p className="text-gray-300 leading-relaxed">
                                             A multifaceted creative force hailing from Gambia and Sierra Leone, Jedii007 fuses West African heritage with contemporary global sounds. From early literary experiments and comic book ventures to exploring acting and eventually pioneering an Afro-fusion/alté sound, his journey is as diverse as it is innovative.
                                         </p>
-                                        <div className={`overflow-hidden transition-all duration-500 ${showFullBio ? 'max-h-[500px]' : 'max-h-0'}`}>
+                                        <div className={`overflow-y-auto max-h-[60vh] md:max-h-none md:overflow-y-visible transition-all duration-500 ${showFullBio ? 'max-h-[60vh]' : 'max-h-0'}`}>
                                             <div className="space-y-4">
                                                 <p className="text-gray-300 leading-relaxed">
                                                     Born Samuel Jordan Edmond Bernard, Jedii007's early ambitions in writing were reshaped by his passion for music. Inspired by legends like Wizkid, Ice Prince, and later influenced by American icons such as Drake and Kendrick Lamar, he crafted a signature style that challenges traditional boundaries.
@@ -165,7 +165,7 @@ export default function Jedii007Page() {
                                                 <p className="text-gray-300 leading-relaxed">
                                                     Overcoming obstacles—from limited recording spaces in Cyprus to personal challenges—Jedii007's resilience fueled his evolution. He now leads Synergy, a rebranded creative collective dedicated to mentoring emerging talents and redefining Afro-fusion.
                                                 </p>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                                                     <div className="bg-white/5 rounded-lg p-4">
                                                         <h3 className="text-[#e68531] font-medium mb-2">Creative Evolution</h3>
                                                         <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
