@@ -87,7 +87,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#e68531" />
       </head>
-      <body className={`${saira.className} dark:text-gray-100`}>
+      <body className={`${saira.className} dark:text-gray-100 min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] bg-fixed`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <LoadingProvider>
             <SidebarProvider>
@@ -136,14 +136,14 @@ export default function RootLayout({
                   </div>
 
                   {/* Logo at Bottom */}
-                  <SidebarHeader className="p-4">
+                  <SidebarHeader className="mb-10">
                     <div className="flex items-center justify-center">
                       <Image
-                        src="/synergySmall.png"
+                        src="/Synergyvybes.png"
                         alt="SYNERGY Logo"
-                        width={48}
-                        height={48}
-                        className="rounded-full object-contain"
+                        width={100}
+                        height={100}
+                        className="rounded-full "
                       />
                     </div>
                   </SidebarHeader>
