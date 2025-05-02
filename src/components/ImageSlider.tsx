@@ -6,6 +6,7 @@ interface ImageSliderProps {
     images: {
         src: string;
         alt: string;
+        status?: "out-now" | "coming-soon";
     }[];
     interval?: number; // Optional interval in milliseconds
 }
@@ -52,6 +53,16 @@ export default function ImageSlider({ images, interval = 5000 }: ImageSliderProp
                 className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                 priority
             />
+
+            {/* Status Indicator */}
+            {images[currentIndex].status && (
+                <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-sm font-medium ${images[currentIndex].status === "out-now"
+                    ? "bg-[#e68531] text-white"
+                    : "bg-white/90 text-gray-900"
+                    }`}>
+                    {images[currentIndex].status === "out-now" ? "Out Now" : "Coming Soon"}
+                </div>
+            )}
 
             {/* Navigation Arrows */}
             <button

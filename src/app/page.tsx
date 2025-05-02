@@ -5,8 +5,7 @@ import SynergyUpdates from "@/components/SynergyUpdates";
 export default async function Home() {
   return (
     <Container>
-      {/* Synergy Updates hidden for now
-      <SynergyUpdates /> */}
+      {/* <SynergyUpdates /> */}
       <Hero />
     </Container>
   );

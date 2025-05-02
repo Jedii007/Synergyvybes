@@ -69,18 +69,21 @@ export default function Jedii007Page() {
 
     const displayedSongs = showAllTracks ? songs : songs.slice(0, 3);
 
-    const images = [
+    const images: { src: string; alt: string; status?: "out-now" | "coming-soon" }[] = [
         {
             src: "/Badmixescover.png",
             alt: "Jedii007 - Creative Journey Image 3",
+            status: "out-now"
         },
         {
             src: "/4y2kh.jpg",
             alt: "Jedii007",
+            status: "out-now"
         },
         {
             src: "/up.jpg",
             alt: "Jedii007 - Creative Journey Image 2",
+            status: "out-now"
         },
     ];
 

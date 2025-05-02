@@ -1,29 +1,76 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+import { Saira } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "next-themes";
 import { PopupWidget } from "@/components/PopupWidget";
 import { Sidebar, SidebarProvider, SidebarInset, SidebarTrigger, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Home, Users, Mail, Sparkles } from "lucide-react";
-import ThemeChanger from "@/components/DarkSwitch";
+import { Home, Users, Sparkles } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { LoadingProvider } from "@/context/LoadingContext";
 import { sidebarButtonStyles } from "@/constants/styles";
-import { Saira } from "next/font/google";
 
 const saira = Saira({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Synergyvybes",
-  description: "A home for creatives",
+  title: {
+    default: "Synergyvybes - Creative Collective",
+    template: "%s | Synergyvybes"
+  },
+  description: "A creative sanctuary where artists and visionaries connect, collaborate, and showcase their brilliance. Join our community of innovative creators.",
   icons: {
     icon: [
       { url: '/favicon.svg' },
       { url: '/synergySmall.png' }
+    ]
+  },
+  keywords: ["creative collective", "artists", "music", "afro-fusion", "alté", "gambia", "sierra leone", "nigeria", "art", "music", "creative"],
+  authors: [{ name: "Synergyvybes" }],
+  creator: "Synergyvybes",
+  publisher: "Synergyvybes",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://synergyvybes.com'),
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://synergyvybes.com',
+    siteName: 'Synergyvybes',
+    title: 'Synergyvybes - Creative Collective',
+    description: 'A creative sanctuary where artists and visionaries connect, collaborate, and showcase their brilliance.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Synergyvybes Creative Collective',
+      },
     ],
-    apple: '/synergySmall.png',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Synergyvybes - Creative Collective',
+    description: 'A creative sanctuary where artists and visionaries connect, collaborate, and showcase their brilliance.',
+    images: ['/twitter-image.jpg'],
+    creator: '@synergyvybes',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-site-verification',
   },
 };
 
@@ -34,7 +81,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${saira.className} dark:text-gray-100 `}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#e68531" />
+      </head>
+      <body className={`${saira.className} dark:text-gray-100`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <LoadingProvider>
             <SidebarProvider>
@@ -67,7 +120,6 @@ export default function RootLayout({
                             </SidebarMenuButton>
                           </Link>
                         </SidebarMenuItem>
-                        {/* Contact link removed - now part of About page */}
                         <SidebarMenuItem>
                           <Link href="/artist-spotlight" className="w-full">
                             <SidebarMenuButton
@@ -79,9 +131,6 @@ export default function RootLayout({
                             </SidebarMenuButton>
                           </Link>
                         </SidebarMenuItem>
-                        {/* <div className="flex justify-center">
-                          <ThemeChanger />
-                        </div> */}
                       </div>
                     </SidebarMenu>
                   </div>
