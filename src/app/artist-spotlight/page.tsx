@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { featuredArtists } from "@/constants/featuredArtistesData";
 
 // Feature flag to easily enable/disable the spotlight feature
-const ENABLE_SPOTLIGHT = false;
+const ENABLE_SPOTLIGHT = true;
 
 export default function ArtistSpotlightRedirect() {
   const router = useRouter();

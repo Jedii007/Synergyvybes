@@ -44,7 +44,10 @@ export default function ArtistSpotlightPage() {
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-16 text-center">
-          <h1 className="text-5xl font-bold mb-4">Artist Spotlight: {artist.name}</h1>
+          <h1 className="text-5xl font-bold mb-4">
+            <span className="text-white">Artist Spotlight: </span>
+            <span className="text-[#e68531]">{artist.name}</span>
+          </h1>
           <p className="max-w-3xl mx-auto text-lg text-gray-600 dark:text-gray-300">
             Celebrating extraordinary creative minds who are pushing boundaries and
             redefining artistic expression through their unique vision and craft.
@@ -62,9 +65,9 @@ export default function ArtistSpotlightPage() {
             <div>
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
                 {/* Artist Hero Section */}
-                <div className="relative h-64 w-full">
+                <div className="relative h-96 w-full">
                   <Image
-                    src={artist.showcase[0].image}
+                    src={artist.wideImage || artist.showcase[0].image}
                     alt={artist.name + "'s work"}
                     fill
                     className="object-cover"
@@ -80,14 +83,13 @@ export default function ArtistSpotlightPage() {
                 {/* Navigation Tabs */}
                 <div className="border-b border-gray-200 dark:border-gray-700">
                   <nav className="flex">
-                    {["work", "about", "interview"].map((tab) => (
+                    {["work", "about", "interview", "exhibitions"].map((tab) => (
                       <button
                         key={tab}
-                        className={`py-4 px-6 text-center font-medium transition-colors ${
-                          activeTab === tab
-                            ? "border-b-2 border-[#e68531] text-[#e68531]"
-                            : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                        }`}
+                        className={`py-4 px-6 text-center font-medium transition-colors ${activeTab === tab
+                          ? "border-b-2 border-[#e68531] text-[#e68531]"
+                          : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                          }`}
                         onClick={() => setActiveTab(tab)}
                       >
                         {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -107,7 +109,6 @@ export default function ArtistSpotlightPage() {
                             key={index}
                             className="group relative h-64 rounded-lg overflow-hidden shadow-md cursor-pointer"
                             onClick={() => {
-                              // Cast the type to "image" | "audio"
                               const typedWork = {
                                 ...work,
                                 type: work.type as "image" | "audio"
@@ -136,6 +137,29 @@ export default function ArtistSpotlightPage() {
                     </div>
                   )}
 
+                  {/* Exhibitions Timeline */}
+                  {activeTab === "exhibitions" && (
+                    <div className="space-y-8">
+                      {artist.exhibitions.map((year, index) => (
+                        <div key={index} className="relative pl-8 border-l-2 border-[#e68531]">
+                          <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#e68531]"></div>
+                          <h3 className="text-2xl font-bold mb-4">{year.year}</h3>
+                          <ul className="space-y-4">
+                            {year.events.map((event, eventIndex) => (
+                              <li key={eventIndex} className="pl-4">
+                                <h4 className="font-semibold text-lg">{event.title}</h4>
+                                <p className="text-gray-600 dark:text-gray-300">{event.location}</p>
+                                {event.description && (
+                                  <p className="text-gray-500 dark:text-gray-400 mt-1">{event.description}</p>
+                                )}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
                   {/* About the Artist */}
                   {activeTab === "about" && (
                     <div>
@@ -148,12 +172,12 @@ export default function ArtistSpotlightPage() {
                           rel="noopener noreferrer"
                           className="px-4 py-2 bg-[#e68531] text-white rounded-md hover:bg-[#e68531]/80 transition-colors"
                         >
-                          Visit Portfolio
+                          Dxd Interview
                         </a>
                         {Object.entries(artist.socialLinks).map(([platform, handle]) => (
                           <a
                             key={platform}
-                            href="#"
+                            href="https://www.instagram.com/iamcissh"
                             className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                           >
                             {platform.charAt(0).toUpperCase() + platform.slice(1)}: {handle}
@@ -183,8 +207,7 @@ export default function ArtistSpotlightPage() {
                   {activeTab === "interview" && artist.interview && (
                     <div>
                       <div className="relative bg-[#e68531]/10 p-6 rounded-lg mb-8">
-                        <div className="text-5xl absolute top-4 left-4 text-[#e68531]/30">"YES"</div>
-                        <p className="text-xl italic font-light ml-8 relative z-10">
+                        <p className="text-xl italic font-light text-[#e68531] ml-8 relative z-10">
                           {artist.interview.quote}
                         </p>
                       </div>

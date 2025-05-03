@@ -8,9 +8,9 @@ interface WorkModalProps {
   onClose: () => void;
   work: {
     image: string;
-    title: string;
-    description: string;
-    type: "image" | "audio";
+    title?: string;
+    description?: string;
+    type?: "image" | "audio";
     audioUrl?: string;
   };
 }
@@ -73,7 +73,7 @@ export default function WorkModal({ isOpen, onClose, work }: WorkModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
       <div
         ref={modalRef}
-        className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden max-w-4xl w-full max-h-[90vh] flex flex-col"
+        className="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden max-w-6xl w-full max-h-[90vh] flex flex-col"
       >
         {/* Close button */}
         <button
@@ -84,12 +84,12 @@ export default function WorkModal({ isOpen, onClose, work }: WorkModalProps) {
         </button>
 
         {/* Content */}
-        <div className="flex flex-col md:flex-row h-[70vh]">
+        <div className="flex flex-col h-[80vh]">
           {/* Image */}
-          <div className="relative w-full md:w-1/2 h-80 md:h-full">
+          <div className="relative w-full h-[80%]">
             <Image
               src={work.image}
-              alt={work.title}
+              alt={work.title || "Artwork"}
               fill
               className="object-cover"
             />
@@ -131,30 +131,18 @@ export default function WorkModal({ isOpen, onClose, work }: WorkModalProps) {
           </div>
 
           {/* Details */}
-          <div className="p-8 md:w-1/2 flex flex-col overflow-y-auto">
-            <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">{work.title}</h3>
-            <div className="space-y-4">
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+          <div className="p-6 flex flex-col items-center justify-center text-center bg-white/5 backdrop-blur-sm">
+            {work.title && (
+              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{work.title}</h3>
+            )}
+            {work.description && (
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-2xl">
                 {work.description}
               </p>
-
-              {/* Additional content that could be added in the future */}
-              <div className="pt-6 border-t border-gray-200 dark:border-gray-700 mt-8">
-                <h4 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
-                  About this {work.type === "audio" ? "track" : "artwork"}
-                </h4>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {work.type === "audio"
-                    ? "This piece represents the artist's unique approach to blending sound and storytelling. The composition reflects both technical skill and emotional depth."
-                    : "This piece showcases the artist's distinctive visual style and creative vision. The composition balances technical execution with meaningful expression."
-                  }
-                </p>
-              </div>
-            </div>
-
+            )}
             {work.type === "audio" && (
-              <div className="mt-auto pt-6">
-                <p className="text-sm text-gray-500 dark:text-gray-400 italic flex items-center">
+              <div className="mt-4">
+                <p className="text-sm text-gray-500 dark:text-gray-400 italic flex items-center justify-center">
                   <span className="inline-block w-3 h-3 bg-[#e68531] rounded-full mr-2 animate-pulse"></span>
                   Click the play button to listen to a 30-second preview
                 </p>

@@ -7,74 +7,203 @@ type ShowcaseItem = {
   audioUrl?: string;
 };
 
-export const featuredArtists = [
+type ExhibitionEvent = {
+  title: string;
+  location: string;
+  description?: string;
+};
+
+type ExhibitionYear = {
+  year: string;
+  events: ExhibitionEvent[];
+};
+
+type Artist = {
+  id: number;
+  name: string;
+  medium: string;
+  image: string;
+  wideImage: string;
+  spotlightImage: string;
+  featured: boolean;
+  slug: string;
+  bio: string;
+  showcase: ShowcaseItem[];
+  portfolioLink: string;
+  socialLinks: {
+    instagram: string;
+    twitter?: string;
+    facebook?: string;
+  };
+  interview?: {
+    quote: string;
+    questions: {
+      q: string;
+      a: string;
+    }[];
+  };
+  exhibitions: ExhibitionYear[];
+};
+
+export const featuredArtists: Artist[] = [
   {
     id: 1,
-    name: "Jedii007",
-    medium: "Music Producer & Artist",
-    image: "/IMG_8643.jpeg",
-    spotlightImage: "/Badmixescover.png", 
+    name: "Cissh",
+    medium: "Visual Artist",
+    image: "/spotlight/Main.png",
+    wideImage: "/spotlight/Exhibitions and Art Fairs.png",
+    spotlightImage: "/spotlight/Main.png",
     featured: true,
-    slug: "jedii007", // URL slug for routing
-    bio: "Jedii007 is a multi-talented artist and producer from Gambia and Sierra Leone. With a unique blend of Afrobeats, R&B, and electronic music, Jedii007 creates immersive sonic experiences that transcend cultural boundaries. His work is characterized by innovative production techniques and authentic storytelling.",
+    slug: "cissh",
+    bio: "My artistic practice is a reflection of my experiences, a visual diary of my interactions with the world. Through animation, sculpture, and painting, I capture and preserve fleeting moments, transforming them into a narrative that is both personal and evocative. Each piece serves as a fragment of my memory, a thought frozen in time. My journey as an artist began under the influence of my brother, who was establishing his own niche in the Zimbabwean art scene. Inspired by his artistic endeavors, I started exploring painting and found solace in the realistic depiction of subjects. Over time, I gravitated towards abstract line art, where I could create my own unique world. Drawing inspiration from the renowned Zimbabwean stone carvings of faces, I incorporated these elements into my work, telling stories that intertwined my artistic heritage with contemporary themes. As a multimedia artist, I embrace a variety of mediums, including painting, sculpting, animation, and social advocacy. My work is driven by a desire to engage with the world on a deeper level, to spark conversations, and to inspire change. Through my art, I strive to create meaningful experiences that resonate with audiences and leave a lasting impact.",
     showcase: [
       {
-        image: "/IMG_8643.jpeg",
-        title: "Elevation",
-        description: "A visual representation of rising above challenges through music. This piece captures the essence of transcendence and spiritual growth through artistic expression.",
+        image: "/spotlight/A family of three.png",
+        title: "Family Series",
+        description: "An intimate exploration of family dynamics through visual art.",
         type: "image"
       },
       {
-        image: "/jedii.jpg",
-        title: "Sonic Waves",
-        description: "Exploring the intersection of sound and visual art, this piece visualizes how music waves can transform emotions and create immersive experiences.",
+        image: "/spotlight/Cowboy Blues.png",
+        title: "Cowboy Blues",
+        description: "A unique blend of traditional and contemporary themes in this striking piece.",
         type: "image"
       },
       {
-        image: "/jediikhodah.jpeg",
-        title: "Rhythm & Soul",
-        description: "A celebration of the deep connection between rhythm and human emotion. This work examines how musical patterns can resonate with our innermost feelings.",
+        image: "/spotlight/Fashion sculptures.JPG",
+        title: "Fashion Sculptures",
+        description: "Innovative sculptures that bridge the gap between fashion and art.",
         type: "image"
       },
       {
-        image: "/Synergyvibes.png",
-        title: "Urban Beats",
-        description: "Inspired by city life and urban culture, this piece blends traditional African rhythms with contemporary sounds to create a unique auditory landscape.",
+        image: "/spotlight/Growing blocks.PNG",
+        title: "Growing Blocks",
+        description: "An exploration of growth and transformation through geometric forms.",
+        type: "image"
+      },
+      {
+        image: "/spotlight/Kaapstaap potrait.png",
+        title: "Kaapstaap Portrait",
+        description: "A striking portrait capturing the essence of character and identity.",
+        type: "image"
+      },
+      {
+        image: "/spotlight/Re-inventing Myself.PNG",
+        title: "Re-inventing Myself",
+        description: "A personal journey of transformation and self-discovery through art.",
+        type: "image"
+      },
+      {
+        image: "/spotlight/Self Centered.PNG",
+        title: "Self Centered",
+        description: "An introspective piece exploring themes of self-identity and perception.",
+        type: "image"
+      },
+      {
+        image: "/spotlight/The Theatrics Of a soon to be mother Artwork-min.jpg",
+        title: "The Theatrics of Motherhood",
+        description: "A powerful exploration of the journey into motherhood through dramatic visual storytelling.",
         type: "image"
       }
     ],
-    portfolioLink: "/jedii007",
+    portfolioLink: "https://www.instagram.com/reel/DG75paSIeMH/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
     socialLinks: {
-      instagram: "@jedii.heic",
-      twitter: "@jedii_txt",
-      youtube: "@jedii.mp4"
+      instagram: "iamcissh"
     },
     interview: {
-      quote: "Music is my way of connecting cultures and sharing stories that might otherwise go untold.",
+      quote: "‘I damn near need this more than I need to breathe’",
       questions: [
         {
-          q: "What inspired you to start producing music?",
-          a: "I grew up surrounded by diverse musical influences from both Gambia and Sierra Leone. The rich tapestry of sounds and rhythms from these cultures naturally drew me to music production as a way to blend traditional elements with contemporary styles."
+          q: "What inspires your creative process?",
+          a: "I draw inspiration from my Zimbabwean heritage, particularly the stone carvings, and blend it with contemporary themes. My brother's influence in the art scene also played a significant role in shaping my artistic journey."
         },
         {
-          q: "How would you describe your creative process?",
-          a: "My process is very intuitive. I often start with a melody or a rhythm that captures a specific emotion, then build layers around it. I'm constantly experimenting with sounds from different cultural contexts and pushing the boundaries of what's expected in the genres I work with."
+          q: "How do you approach your creative process?",
+          a: "I start with a concept or emotion I want to explore, then experiment with different mediums - from painting to sculpture. Each piece evolves organically as I work, allowing the materials and my intuition to guide the final outcome."
         },
         {
-          q: "What message do you hope listeners take from your music?",
-          a: "I want my music to serve as a bridge between cultures and experiences. There's a universal language in rhythm and melody that can connect people regardless of background. If my music can help someone feel understood or introduce them to a perspective they hadn't considered, I've accomplished what I set out to do."
+          q: "What do you hope viewers take away from your work?",
+          a: "I hope my art sparks conversations about identity, heritage, and personal growth. I want viewers to see themselves reflected in my work while also gaining new perspectives on cultural narratives and human experiences."
         }
       ]
-    }
+    },
+    exhibitions: [
+      {
+        year: "2024",
+        events: [
+          {
+            title: "Solo Exhibition: 'Fragments of Memory'",
+            location: "National Gallery of Zimbabwe, Harare",
+            description: "A collection of works exploring personal and collective memories through mixed media."
+          },
+          {
+            title: "Group Show: 'Contemporary Voices'",
+            location: "Johannesburg Art Gallery, South Africa",
+            description: "Featured alongside emerging African artists pushing boundaries in contemporary art."
+          }
+        ]
+      },
+      {
+        year: "2023",
+        events: [
+          {
+            title: "Art Fair: 'African Art Now'",
+            location: "Cape Town International Convention Centre",
+            description: "Showcased new works in the emerging artists section."
+          },
+          {
+            title: "Group Exhibition: 'Cultural Crossroads'",
+            location: "Victoria Falls Art Gallery, Zimbabwe",
+            description: "Explored the intersection of traditional and modern African art forms."
+          }
+        ]
+      },
+      {
+        year: "2022",
+        events: [
+          {
+            title: "Solo Show: 'Lines of Identity'",
+            location: "Bulawayo National Art Gallery, Zimbabwe",
+            description: "First major solo exhibition featuring abstract line art series."
+          },
+          {
+            title: "International Art Fair",
+            location: "Lagos, Nigeria",
+            description: "Represented Zimbabwe in the international contemporary art showcase."
+          }
+        ]
+      },
+      {
+        year: "2021",
+        events: [
+          {
+            title: "Group Exhibition: 'Emerging Perspectives'",
+            location: "Harare International Festival of the Arts",
+            description: "Featured in the young artists showcase."
+          }
+        ]
+      },
+      {
+        year: "2020",
+        events: [
+          {
+            title: "Debut Exhibition",
+            location: "First Floor Gallery, Harare",
+            description: "First professional exhibition featuring early works."
+          }
+        ]
+      }
+    ]
   },
   {
     id: 2,
     name: "Rossi Sbw",
     medium: "Musician & Poet",
     image: "/Instagram Downloader Image.jpg",
-    spotlightImage: "/rosii.jpg", // Different image for the spotlight card
+    wideImage: "/rosii.jpg",
+    spotlightImage: "/rosii.jpg",
     featured: false,
-    slug: "rossi-sbw", // URL slug for routing
+    slug: "rossi-sbw",
     bio: "Victor Chima Okoroafor, known professionally as Rossi Sbw, is a Nigerian artist who seamlessly blends his background in biomedicine with his passion for poetry, spoken word, and music production. Born and raised in Lagos, Nigeria, and hailing from Abia State, Rossi creates art that explores the duality of human experience, finding beauty in life's struggles.",
     showcase: [
       {
@@ -109,8 +238,8 @@ export const featuredArtists = [
     portfolioLink: "/rossi",
     socialLinks: {
       instagram: "@r0ssi.sbw",
-      tiktok: "@sabboyrossi",
-      youtube: "@rossi_sbw"
+      twitter: "@rossi_sbw",
+      facebook: "Rossi Sbw"
     },
     interview: {
       quote: "I see every day as an opportunity to fail and try again, searching not for favor but for the wisdom that comes from personal growth.",
@@ -128,16 +257,29 @@ export const featuredArtists = [
           a: "Growing up in Lagos and being from Abia State has deeply influenced my storytelling and sonic palette. Nigerian culture is rich with oral traditions, diverse musical expressions, and profound philosophical perspectives. I draw from these cultural roots while adding my own contemporary interpretations, creating a bridge between traditional wisdom and modern experiences."
         }
       ]
-    }
+    },
+    exhibitions: [
+      {
+        year: "2023",
+        events: [
+          {
+            title: "Digital Art Showcase",
+            location: "Online Gallery",
+            description: "Featured in the annual digital art exhibition."
+          }
+        ]
+      }
+    ]
   },
   {
     id: 3,
     name: "Maya Johnson",
     medium: "Visual Artist",
     image: "/jedii.jpg",
-    spotlightImage: "/Synergyvibes.png", // Different image for the spotlight card
+    wideImage: "/jedii.jpg",
+    spotlightImage: "/Synergyvibes.png",
     featured: false,
-    slug: "maya-johnson", // URL slug for routing
+    slug: "maya-johnson",
     bio: "Maya Johnson is a contemporary visual artist whose work explores themes of identity, memory, and urban landscapes. Through mixed media and digital techniques, she creates immersive visual narratives that challenge conventional perspectives.",
     showcase: [
       {
@@ -168,17 +310,31 @@ export const featuredArtists = [
     portfolioLink: "https://example.com/maya",
     socialLinks: {
       instagram: "@maya.creates",
-      twitter: "@maya_johnson_art"
-    }
+      twitter: "@maya_johnson_art",
+      facebook: "Maya Johnson"
+    },
+    exhibitions: [
+      {
+        year: "2023",
+        events: [
+          {
+            title: "Mixed Media Exhibition",
+            location: "Local Gallery",
+            description: "Showcasing new works in mixed media."
+          }
+        ]
+      }
+    ]
   },
   {
     id: 4,
     name: "Jamal Wright",
     medium: "Sculptor & Installation Artist",
     image: "/rosii.jpg",
-    spotlightImage: "/Instagram Downloader Image.jpg", // Different image for the spotlight card
+    wideImage: "/rosii.jpg",
+    spotlightImage: "/Instagram Downloader Image.jpg",
     featured: false,
-    slug: "jamal-wright", // URL slug for routing
+    slug: "jamal-wright",
     bio: "Jamal Wright transforms everyday materials into thought-provoking sculptures and installations that examine social structures and environmental concerns. His work has been featured in galleries across the country.",
     showcase: [
       {
@@ -209,7 +365,21 @@ export const featuredArtists = [
     portfolioLink: "https://example.com/jamal",
     socialLinks: {
       instagram: "@jamal.wright.art",
-      twitter: "@jamalwrightart"
-    }
+      twitter: "@jamalwrightart",
+      facebook: "Jamal Wright"
+    },
+    exhibitions: [
+      {
+        year: "2023",
+        events: [
+          {
+            title: "Mixed Media Exhibition",
+            location: "Local Gallery",
+            description: "Showcasing new works in mixed media."
+          }
+        ]
+      }
+    ]
   }
 ];
+

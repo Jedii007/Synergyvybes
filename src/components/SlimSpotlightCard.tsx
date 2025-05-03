@@ -6,7 +6,7 @@ import { featuredArtists } from "@/constants/featuredArtistesData";
 import { Sparkles } from "lucide-react";
 
 // Feature flag to easily enable/disable the spotlight feature
-const ENABLE_SPOTLIGHT = false;
+const ENABLE_SPOTLIGHT = true;
 
 export default function SlimSpotlightCard() {
   // Get the first featured artist
@@ -31,7 +31,7 @@ export default function SlimSpotlightCard() {
               className="object-cover transition-transform duration-500 group-hover:scale-110"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/90 to-transparent opacity-90" />
 
             <div className="absolute inset-0 flex flex-col justify-end p-6">
               <h4 className="font-bold text-white text-2xl md:text-3xl group-hover:text-[#e68531] transition-colors mb-2">

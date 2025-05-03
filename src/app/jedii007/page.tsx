@@ -71,7 +71,7 @@ export default function Jedii007Page() {
 
     const images: { src: string; alt: string; status?: "out-now" | "coming-soon" }[] = [
         {
-            src: "/Badmixescover.png",
+            src: "/Badmixescoverr.png",
             alt: "Jedii007 - Creative Journey Image 3",
             status: "out-now"
         },
