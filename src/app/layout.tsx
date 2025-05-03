@@ -10,6 +10,7 @@ import Image from "next/image";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { LoadingProvider } from "@/context/LoadingContext";
 import { sidebarButtonStyles } from "@/constants/styles";
+import { Analytics } from "@vercel/analytics/react";
 
 const saira = Saira({ subsets: ["latin"] });
 
@@ -157,6 +158,7 @@ export default function RootLayout({
                 {children}
               </SidebarInset>
               <PopupWidget />
+              <Analytics />
             </SidebarProvider>
           </LoadingProvider>
         </ThemeProvider>
