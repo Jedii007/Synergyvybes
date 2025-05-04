@@ -6,7 +6,7 @@ import { getLatestTracks } from "@/services/appleMusic";
 import ImageSlider from "@/components/ImageSlider";
 import BlogPreview from "@/components/BlogPreview";
 import { useState, useEffect, useRef } from "react";
-import { Play, Pause, ChevronDown, ChevronUp, Instagram, Twitter, Youtube, Mail } from "lucide-react";
+import { Play, Pause, ChevronDown, ChevronUp, Instagram, Twitter, Youtube, Mail, Link2 } from "lucide-react";
 import LyricsSection from "@/components/LyricsSection";
 import { songLyrics } from "@/constants/lyricsData";
 
@@ -125,14 +125,17 @@ export default function Jedii007Page() {
 
                     {/* Social Media Icons */}
                     <div className="flex items-center gap-4">
-                        <a href="" className="text-white hover:text-[#e68531] transition-colors">
+                        <a href="https://www.instagram.com/jedii.heic/" className="text-white hover:text-[#e68531] transition-colors">
                             <Instagram className="w-6 h-6" />
                         </a>
-                        <a href="#" className="text-white hover:text-[#e68531] transition-colors">
+                        <a href="https://x.com/jedii_txt" className="text-white hover:text-[#e68531] transition-colors">
                             <Twitter className="w-6 h-6" />
                         </a>
-                        <a href="#" className="text-white hover:text-[#e68531] transition-colors">
+                        <a href="https://www.youtube.com/@jedii.mp4/" className="text-white hover:text-[#e68531] transition-colors">
                             <Youtube className="w-6 h-6" />
+                        </a>
+                        <a href="https://linktr.ee/Synergyvybes" className="text-white hover:text-[#e68531] transition-colors">
+                            <Link2 className="w-6 h-6" />
                         </a>
                     </div>
 
