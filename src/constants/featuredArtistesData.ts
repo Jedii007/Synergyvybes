@@ -132,14 +132,34 @@ export const featuredArtists: Artist[] = [
         year: "2024",
         events: [
           {
-            title: "Solo Exhibition: 'Fragments of Memory'",
-            location: "National Gallery of Zimbabwe, Harare",
-            description: "A collection of works exploring personal and collective memories through mixed media."
+            title: "Diverse-It Festival (Installation)",
+            location: "",
+            description: ""
           },
           {
-            title: "Group Show: 'Contemporary Voices'",
-            location: "Johannesburg Art Gallery, South Africa",
-            description: "Featured alongside emerging African artists pushing boundaries in contemporary art."
+            title: "Building Bridges with Eisa Baddour Tour Exhibition EU",
+            location: "",
+            description: ""
+          },
+          {
+            title: "Diaspora Vote EU Belgium Exhibition",
+            location: "",
+            description: ""
+          },
+          {
+            title: "Refugee Rights Pride Week Exhibition EU",
+            location: "",
+            description: ""
+          },
+          {
+            title: "Inevitability Of Collaboration with Raime",
+            location: "",
+            description: ""
+          },
+          {
+            title: "Art Therapy Fair",
+            location: "",
+            description: ""
           }
         ]
       },
@@ -147,14 +167,19 @@ export const featuredArtists: Artist[] = [
         year: "2023",
         events: [
           {
-            title: "Art Fair: 'African Art Now'",
-            location: "Cape Town International Convention Centre",
-            description: "Showcased new works in the emerging artists section."
+            title: "Open Art Cy Live Painting and Exhibition",
+            location: "",
+            description: ""
           },
           {
-            title: "Group Exhibition: 'Cultural Crossroads'",
-            location: "Victoria Falls Art Gallery, Zimbabwe",
-            description: "Explored the intersection of traditional and modern African art forms."
+            title: "Poets On Island Event and Exhibition",
+            location: "",
+            description: ""
+          },
+          {
+            title: "Seeing Faces Solo Exhibition",
+            location: "",
+            description: ""
           }
         ]
       },
@@ -162,14 +187,9 @@ export const featuredArtists: Artist[] = [
         year: "2022",
         events: [
           {
-            title: "Solo Show: 'Lines of Identity'",
-            location: "Bulawayo National Art Gallery, Zimbabwe",
-            description: "First major solo exhibition featuring abstract line art series."
-          },
-          {
-            title: "International Art Fair",
-            location: "Lagos, Nigeria",
-            description: "Represented Zimbabwe in the international contemporary art showcase."
+            title: "BRANDON BRANDON BRANDON 3D Solo Exhibition 3",
+            location: "",
+            description: ""
           }
         ]
       },
@@ -177,9 +197,9 @@ export const featuredArtists: Artist[] = [
         year: "2021",
         events: [
           {
-            title: "Group Exhibition: 'Emerging Perspectives'",
-            location: "Harare International Festival of the Arts",
-            description: "Featured in the young artists showcase."
+            title: "BRANDON BRANDON BRANDON 3D Solo Exhibition 2",
+            location: "",
+            description: ""
           }
         ]
       },
@@ -187,9 +207,9 @@ export const featuredArtists: Artist[] = [
         year: "2020",
         events: [
           {
-            title: "Debut Exhibition",
-            location: "First Floor Gallery, Harare",
-            description: "First professional exhibition featuring early works."
+            title: "BRANDON BRANDON BRANDON 3D Solo Exhibition 1",
+            location: "",
+            description: ""
           }
         ]
       }
