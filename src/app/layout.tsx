@@ -11,6 +11,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { LoadingProvider } from "@/context/LoadingContext";
 import { sidebarButtonStyles } from "@/constants/styles";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const saira = Saira({ subsets: ["latin"] });
 
@@ -159,6 +160,7 @@ export default function RootLayout({
               </SidebarInset>
               <PopupWidget />
               <Analytics />
+              <SpeedInsights />
             </SidebarProvider>
           </LoadingProvider>
         </ThemeProvider>
