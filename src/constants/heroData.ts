@@ -2,7 +2,7 @@ export const heroData = {
   cards: [
     {
       title: "Jedii007",
-      image: "/jedii.jpg",
+      image: "/jediiii.jpg",
       href: "/jedii007",
       role: "Artiste, Creative Director",
       country: "Gambia, Sierra Leone",

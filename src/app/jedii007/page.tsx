@@ -29,17 +29,17 @@ export default function Jedii007Page() {
     // Mock upcoming tracks
     const upcomingTracks = [
         {
-            name: "Bad Mixes II",
-            image: "/Badmixescover.png",
-        },
-        {
             name: "New Comer",
-            image: "",
+            image: "/newcomer.jpg",
         },
         {
             name: "Speed-dial",
             image: "",
-        }
+        },
+        // {
+        //     name: "Bad Mixes II",
+        //     image: "/Badmixescover.png",
+        // } 
     ];
 
     useEffect(() => {
@@ -71,20 +71,20 @@ export default function Jedii007Page() {
 
     const images: { src: string; alt: string; status?: "out-now" | "coming-soon" }[] = [
         {
-            src: "/Badmixescoverr.png",
-            alt: "Jedii007 - Creative Journey Image 3",
-            status: "out-now"
+            src: "/newcomer.jpg",
+            alt: "Jedii007 - Creative Journey Image 2",
+            status: "coming-soon"
         },
         {
             src: "/4y2kh.jpg",
             alt: "Jedii007",
             status: "out-now"
-        },
+        } ,
         {
-            src: "/up.jpg",
-            alt: "Jedii007 - Creative Journey Image 2",
+            src: "/Badmixescoverr.png",
+            alt: "Jedii007 - Creative Journey Image 3",
             status: "out-now"
-        },
+        } 
     ];
 
     const handlePlay = (previewUrl: string) => {
