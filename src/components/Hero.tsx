@@ -52,7 +52,7 @@ export default function Hero() {
               src={card.image}
               alt={card.title}
               fill
-              className="object-cover brightness-110"
+              className={`object-cover brightness-110 ${card.title === "Jedii007" ? "object-[36%] translate-y-[0%]" : ""} ${card.title === "Skippy on Fir3" ? "object-[45%] translate-y-[0%]" : ""}`}
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
             />

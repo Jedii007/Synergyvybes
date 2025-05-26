@@ -42,3 +42,46 @@ export async function getLatestTracks(artistId: string, limit: number = 6): Prom
     return [];
   }
 }
+
+export async function getTopTracks(artistId: string, limit: number = 6): Promise<Song[]> {
+  try {
+    const response = await fetch(
+      `https://itunes.apple.com/lookup?id=${artistId}&entity=song&limit=200&sort=popularity`
+    );
+    const data = await response.json();
+
+    if (!data.results) {
+      return [];
+    }
+
+    // Get the main artist name from the first result
+    const mainArtistName = data.results[0]?.artistName;
+    
+    if (!mainArtistName) {
+      return [];
+    }
+
+    // Filter out the first result (which is the artist info) and keep only tracks by the main artist
+    const songs = data.results
+      .slice(1)
+      // Filter to only include tracks where the specified artist is the primary artist
+      .filter((track: any) => track.artistName === mainArtistName)
+      // Convert to Song type with the required fields
+      .map((track: any) => ({
+        id: track.trackId,
+        name: track.trackName,
+        artist: track.artistName,
+        previewUrl: track.previewUrl,
+        artworkUrl: track.artworkUrl100?.replace('100x100', '500x500') || '',
+        albumName: track.collectionName,
+        releaseDate: new Date(track.releaseDate),
+      }))
+      // Sort by popularity (iTunes returns most popular first by default)
+      .slice(0, limit);
+
+    return songs;
+  } catch (error) {
+    console.error("Error fetching artist's top tracks:", error);
+    return [];
+  }
+}

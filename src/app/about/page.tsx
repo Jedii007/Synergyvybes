@@ -254,7 +254,7 @@ export default function AboutPage() {
                   <div className="flex items-center gap-4">
                     <span className="text-gray-400 text-sm">Follow us:</span>
                     <a
-                      href="https://instagram.com/jedii.heic"
+                      href="https://instagram.com/synergyvybes"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-400 hover:text-[#e68531] transition-colors"
@@ -262,14 +262,14 @@ export default function AboutPage() {
                       <InstagramIcon className="w-6 h-6" />
                     </a>
 
-                    <a
-                      href="https://youtube.com/@jedii.mp4"
+                    {/* <a
+                      href="https://youtube.com/@synergyvybes"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-gray-400 hover:text-[#e68531] transition-colors"
                     >
                       <YoutubeIcon className="w-6 h-6" />
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </form>

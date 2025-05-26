@@ -2,18 +2,24 @@ export const heroData = {
   cards: [
     {
       title: "Jedii007",
-      image: "/jediiii.jpg",
+      image: "/jedii/Synergy Group 257.jpg",
       href: "/jedii007",
       role: "Artiste, Creative Director",
       country: "Gambia, Sierra Leone",
     },
     {
       title: "Rossi Sbw",
-      image: "/Instagram Downloader Image.jpg",
+      image: "/rossi/Synergy Group 256.jpg",
       href: "/rossi",
       role: "Artiste",
       country: "Nigeria",
     },
-    // Scipa and Serai cards removed as requested
+    {
+      title: "Skippy on Fir3",
+      image: "/scipa/Synergy Group 255.jpg",
+      href: "/scipa",
+      role: "Artiste",
+      country: "Gambia, Sierra Leone",
+    },
   ],
 };

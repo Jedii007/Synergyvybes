@@ -52,7 +52,7 @@ export const featuredArtists: Artist[] = [
     medium: "Visual Artist",
     image: "/spotlight/Main.png",
     wideImage: "/spotlight/Exhibitions and Art Fairs.png",
-    spotlightImage: "/spotlight/Main.png",
+    spotlightImage: "/spotlight/Synergy Group 258.jpg",
     featured: true,
     slug: "cissh",
     bio: "My artistic practice is a reflection of my experiences, a visual diary of my interactions with the world. Through animation, sculpture, and painting, I capture and preserve fleeting moments, transforming them into a narrative that is both personal and evocative. Each piece serves as a fragment of my memory, a thought frozen in time. My journey as an artist began under the influence of my brother, who was establishing his own niche in the Zimbabwean art scene. Inspired by his artistic endeavors, I started exploring painting and found solace in the realistic depiction of subjects. Over time, I gravitated towards abstract line art, where I could create my own unique world. Drawing inspiration from the renowned Zimbabwean stone carvings of faces, I incorporated these elements into my work, telling stories that intertwined my artistic heritage with contemporary themes. As a multimedia artist, I embrace a variety of mediums, including painting, sculpting, animation, and social advocacy. My work is driven by a desire to engage with the world on a deeper level, to spark conversations, and to inspire change. Through my art, I strive to create meaningful experiences that resonate with audiences and leave a lasting impact.",

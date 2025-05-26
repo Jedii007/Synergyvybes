@@ -89,7 +89,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#e68531" />
       </head>
-      <body className={`${saira.className} dark:text-gray-100 min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] bg-fixed`}>
+      <body className={`${saira.className} dark:text-gray-100 min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] bg-fixed`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
           <LoadingProvider>
             <SidebarProvider>

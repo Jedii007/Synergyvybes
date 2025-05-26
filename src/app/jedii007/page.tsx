@@ -10,6 +10,17 @@ import { Play, Pause, ChevronDown, ChevronUp, Instagram, Twitter, Youtube, Mail,
 import LyricsSection from "@/components/LyricsSection";
 import { songLyrics } from "@/constants/lyricsData";
 
+// Add type declaration for Instagram embed
+declare global {
+    interface Window {
+        instgrm?: {
+            Embeds: {
+                process: () => void;
+            };
+        };
+    }
+}
+
 type Song = {
     name: string;
     artworkUrl: string;
@@ -24,6 +35,7 @@ export default function Jedii007Page() {
     const [progress, setProgress] = useState(0);
     const [showFullBio, setShowFullBio] = useState(false);
     const [email, setEmail] = useState("");
+    const [instagramLoaded, setInstagramLoaded] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     // Mock upcoming tracks
@@ -33,13 +45,13 @@ export default function Jedii007Page() {
             image: "/newcomer.jpg",
         },
         {
+            name: "Bad Mixes II",
+            image: "/Badmixescover.png",
+        },
+        {
             name: "Speed-dial",
             image: "",
-        },
-        // {
-        //     name: "Bad Mixes II",
-        //     image: "/Badmixescover.png",
-        // } 
+        }
     ];
 
     useEffect(() => {
@@ -51,16 +63,17 @@ export default function Jedii007Page() {
         loadData();
     }, []);
 
-    useEffect(() => {
+    https: useEffect(() => {
         if (audioRef.current) {
-            audioRef.current.addEventListener('timeupdate', () => {
+            audioRef.current.addEventListener("timeupdate", () => {
                 if (audioRef.current) {
-                    const progress = (audioRef.current.currentTime / audioRef.current.duration) * 100;
+                    const progress =
+                        (audioRef.current.currentTime / audioRef.current.duration) * 100;
                     setProgress(progress);
                 }
             });
 
-            audioRef.current.addEventListener('ended', () => {
+            audioRef.current.addEventListener("ended", () => {
                 setPlayingTrack(null);
                 setProgress(0);
             });
@@ -71,20 +84,20 @@ export default function Jedii007Page() {
 
     const images: { src: string; alt: string; status?: "out-now" | "coming-soon" }[] = [
         {
-            src: "/newcomer.jpg",
-            alt: "Jedii007 - Creative Journey Image 2",
-            status: "coming-soon"
-        },
-        {
-            src: "/4y2kh.jpg",
+            src: "/jedii/4y2kh.jpg",
             alt: "Jedii007",
             status: "out-now"
-        } ,
+        },
         {
-            src: "/Badmixescoverr.png",
+            src: "/jedii/newcomer.jpg",
+            alt: "Jedii007 - Creative Journey Image 2",
+            status: "out-now"
+        },
+        {
+            src: "/jedii/Bad Mixes Cover.jpg",
             alt: "Jedii007 - Creative Journey Image 3",
             status: "out-now"
-        } 
+        }
     ];
 
     const handlePlay = (previewUrl: string) => {
@@ -109,8 +122,37 @@ export default function Jedii007Page() {
         setEmail("");
     };
 
+    useEffect(() => {
+        // Load Instagram embed script
+        const script = document.createElement('script');
+        script.src = '//www.instagram.com/embed.js';
+        script.async = true;
+        script.onload = () => {
+            // Initialize Instagram embeds
+            if (window.instgrm) {
+                window.instgrm.Embeds.process();
+                setInstagramLoaded(true);
+            }
+        };
+        document.body.appendChild(script);
+
+        return () => {
+            // Cleanup script on component unmount
+            if (script.parentNode) {
+                script.parentNode.removeChild(script);
+            }
+        };
+    }, []);
+
+    // Re-initialize Instagram embeds when the component updates
+    useEffect(() => {
+        if (window.instgrm) {
+            window.instgrm.Embeds.process();
+        }
+    });
+
     return (
-        <div className="min-h-screen p-4 sm:p-20 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
+        <div className="min-h-screen p-4 sm:p-20 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white">
             <audio ref={audioRef} className="hidden" controls />
             <div className="max-w-7xl mx-auto px-2 sm:px-4">
                 <ImageSlider images={images} />
@@ -160,16 +202,16 @@ export default function Jedii007Page() {
                                         <p className="text-gray-300 leading-relaxed">
                                             A multifaceted creative force hailing from Gambia and Sierra Leone, Jedii007 fuses West African heritage with contemporary global sounds. From early literary experiments and comic book ventures to exploring acting and eventually pioneering an Afro-fusion/alté sound, his journey is as diverse as it is innovative.
                                         </p>
-                                        <div className={`overflow-y-auto max-h-[60vh] md:max-h-none md:overflow-y-visible transition-all duration-500 ${showFullBio ? 'max-h-[60vh]' : 'max-h-0'}`}>
+                                        <div className={`relative transition-all duration-500 ${showFullBio ? 'max-h-[60vh] overflow-y-auto' : 'max-h-0 overflow-hidden'}`}>
                                             <div className="space-y-4">
                                                 <p className="text-gray-300 leading-relaxed">
                                                     Born Samuel Jordan Edmond Bernard, Jedii007's early ambitions in writing were reshaped by his passion for music. Inspired by legends like Wizkid, Ice Prince, and later influenced by American icons such as Drake and Kendrick Lamar, he crafted a signature style that challenges traditional boundaries.
                                                 </p>
                                                 <p className="text-gray-300 leading-relaxed">
-                                                    A turning point came with the discovery of Santi's "Sparky," which opened the door to the alté scene—introducing him to artists like Lady Donli, Tay Iwar, Fasina, and Odunsi. This fusion of sounds birthed an innovative musical identity that is both experimental and deeply rooted in West African culture.
+                                                    A turning point came with the discovery of Show Dem Camp's "Tropicana," which opened the door to the alté scene—introducing him to artists like, Santi, Lady Donli, Tay Iwar, Fasina, and Odunsi. This fusion of sounds birthed an innovative musical identity that is both experimental and deeply rooted in West African culture.
                                                 </p>
                                                 <p className="text-gray-300 leading-relaxed">
-                                                    Overcoming obstacles—from limited recording spaces in Cyprus to personal challenges—Jedii007's resilience fueled his evolution. He now leads Synergy, a rebranded creative collective dedicated to mentoring emerging talents and redefining Afro-fusion.
+                                                    Jedii now leads Synergy, a rebranded creative collective dedicated to mentoring emerging talents and redefining Afro-fusion.
                                                 </p>
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                                                     <div className="bg-white/5 rounded-lg p-4">
@@ -197,6 +239,13 @@ export default function Jedii007Page() {
                                                             <li>Drake's Melodies</li>
                                                         </ul>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            {/* Scroll indicator for mobile */}
+                                            <div className="md:hidden sticky bottom-0 left-0 right-0 bg-gradient-to-t from-[#0f0c29] to-transparent h-12 flex items-center justify-center">
+                                                <div className="animate-bounce text-[#e68531] text-sm flex items-center">
+                                                    <ChevronDown className="w-4 h-4" />
+                                                    <span>Scroll to read more</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -379,6 +428,48 @@ export default function Jedii007Page() {
 
                     {/* Horizontal separator line */}
                     <div className="w-full h-px bg-white/10 my-12" />
+
+                    {/* Instagram Posts Section */}
+                    <div className="space-y-6">
+                        <div className="flex items-center justify-between">
+                            <h2 className="text-2xl font-bold">Instagram Feed</h2>
+                            <a
+                                href="https://www.instagram.com/jedii.heic/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#e68531] hover:text-[#e68531]/80 transition-colors flex items-center gap-2"
+                            >
+                                <Instagram className="w-5 h-5" />
+                                <span>Follow on Instagram</span>
+                            </a>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 [&_.instagram-media]:!bg-transparent [&_.instagram-media]:!shadow-none [&_.instagram-media]:!border-none [&_.instagram-media]:!p-0 [&_.instagram-media]:!w-full [&_.instagram-media]:!max-w-none">
+                            {!instagramLoaded ? (
+                                // Loading skeleton
+                                [...Array(3)].map((_, index) => (
+                                    <div key={index} className="aspect-square bg-white/5 rounded-xl animate-pulse" />
+                                ))
+                            ) : (
+                                <>
+                                    <blockquote
+                                        className="instagram-media"
+                                        data-instgrm-permalink="https://www.instagram.com/p/DJWswVxIsp7/?utm_source=ig_embed&amp;utm_campaign=loading"
+                                        data-instgrm-version="12"
+                                    ></blockquote>
+                                    <blockquote
+                                        className="instagram-media"
+                                        data-instgrm-permalink="https://www.instagram.com/p/DHLpgjPo31T/?utm_source=ig_embed&amp;utm_campaign=loading"
+                                        data-instgrm-version="12"
+                                    ></blockquote>
+                                    <blockquote
+                                        className="instagram-media"
+                                        data-instgrm-permalink="https://www.instagram.com/p/DCxHOZuNMS7/?utm_source=ig_embed&amp;utm_campaign=loading"
+                                        data-instgrm-version="12"
+                                    ></blockquote>
+                                </>
+                            )}
+                        </div>
+                    </div>
 
                     {/* Lyrics Section - Kept at the bottom */}
                     <LyricsSection songs={songLyrics} />

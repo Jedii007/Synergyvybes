@@ -16,15 +16,27 @@ import {
   Youtube,
   Globe,
   Mail,
+  Link2,
 } from "lucide-react";
 import LyricsSection from "@/components/LyricsSection";
-import { songLyrics } from "@/constants/lyricsData";
+import { songLyricsRossi } from "@/constants/lyricsData";
 
 type Song = {
   name: string;
   artworkUrl: string;
   previewUrl: string;
 };
+
+// Add type declaration for Instagram embed
+declare global {
+  interface Window {
+    instgrm?: {
+      Embeds: {
+        process: () => void;
+      };
+    };
+  }
+}
 
 export default function RossiPage() {
   const [showAllTracks, setShowAllTracks] = useState(false);
@@ -34,23 +46,22 @@ export default function RossiPage() {
   const [progress, setProgress] = useState(0);
   const [showFullBio, setShowFullBio] = useState(false);
   const [email, setEmail] = useState("");
+  const [instagramLoaded, setInstagramLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Mock upcoming tracks
   const upcomingTracks = [
     {
-      name: "Elevation II",
-      image: "/rosii.jpg",
+      name: "YX4L",
+      image: "/rossi/yxcov.jpeg",
     },
     {
-      name: "Afro Fusion",
-      image:
-        "",
+      name: "Coming-Soon",
+      image: "",
     },
     {
-      name: "Lagos Nights",
-      image:
-        "",
+      name: "Coming-Soon",
+      image: "",
     },
   ];
 
@@ -80,21 +91,48 @@ export default function RossiPage() {
     }
   }, []);
 
+  useEffect(() => {
+    // Load Instagram embed script
+    const script = document.createElement('script');
+    script.src = '//www.instagram.com/embed.js';
+    script.async = true;
+    script.onload = () => {
+      // Initialize Instagram embeds
+      if (window.instgrm) {
+        window.instgrm.Embeds.process();
+        setInstagramLoaded(true);
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup script on component unmount
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, []);
+
+  // Re-initialize Instagram embeds when the component updates
+  useEffect(() => {
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+    }
+  });
+
   const displayedSongs = showAllTracks ? songs : songs.slice(0, 3);
 
-  const images = [
+  const images: { src: string; alt: string; status?: "out-now" | "coming-soon" }[] = [
     {
-      src: "/rosii.jpg",
-      alt: "Rossi - Image 1",
-    },
-    {
-      src: "/rosii.jpg",
+      src: "/rossi/yx.jpeg",
       alt: "Rossi - Image 2",
+      status: "out-now"
     },
     {
-      src: "/rosii.jpg",
-      alt: "Rossi - Image 3",
-    },
+      src: "/rossi/rosss.jpeg",
+      alt: "Rossi - YX4L",
+      status: "out-now"
+    }
   ];
 
   const handlePlay = (previewUrl: string) => {
@@ -120,49 +158,8 @@ export default function RossiPage() {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
-      <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[80vh]">
-        <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 text-center max-w-2xl">
-          <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-[#e68531]/20 mb-6">
-            <Image
-              src="/rosii.jpg"
-              alt="Rossi"
-              width={128}
-              height={128}
-              className="object-cover w-full h-full"
-            />
-          </div>
-          <h1 className="text-4xl font-bold mb-2">Rossi Sbw</h1>
-          <p className="text-[#e68531] text-lg font-medium mb-6">Coming Soon</p>
-          <p className="text-gray-300 leading-relaxed mb-8">
-            We're currently working on Rossi's artist page. Check back soon to explore his music,
-            story, and creative journey. In the meantime, you can visit our other featured artists.
-          </p>
-          <div className="flex justify-center space-x-4">
-            <a
-              href="#"
-              className="text-white hover:text-[#e68531] transition-colors"
-            >
-              <Instagram className="w-6 h-6" />
-            </a>
-            <a
-              href="#"
-              className="text-white hover:text-[#e68531] transition-colors"
-            >
-              <Twitter className="w-6 h-6" />
-            </a>
-            <a
-              href="#"
-              className="text-white hover:text-[#e68531] transition-colors"
-            >
-              <Youtube className="w-6 h-6" />
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Original content hidden for now */}
-      <div className="hidden">
+    <div className="min-h-screen p-4 sm:p-20 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4">
         <audio ref={audioRef} className="hidden" controls />
         <ImageSlider images={images} />
         <div className="mt-8 space-y-6">
@@ -184,24 +181,24 @@ export default function RossiPage() {
             >
               <Instagram className="w-6 h-6" />
             </a>
-            <a
+            {/* <a
               href="#"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Twitter className="w-6 h-6" />
-            </a>
+            </a> */}
             <a
               href="#"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Youtube className="w-6 h-6" />
             </a>
-            <a
+            {/* <a
               href="#"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Globe className="w-6 h-6" />
-            </a>
+            </a> */}
           </div>
 
           {/* Artist Summary Section */}
@@ -378,52 +375,52 @@ export default function RossiPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {loading
                   ? // Loading skeleton
-                    [...Array(3)].map((_, index) => (
-                      <div
-                        key={index}
-                        className="bg-white/5 backdrop-blur-sm rounded-xl p-4 animate-pulse"
-                      >
-                        <div className="aspect-square bg-white/10 rounded-lg mb-3" />
-                        <div className="h-6 bg-white/10 rounded w-3/4 mb-2" />
-                        <div className="h-4 bg-white/10 rounded w-1/2" />
-                      </div>
-                    ))
+                  [...Array(3)].map((_, index) => (
+                    <div
+                      key={index}
+                      className="bg-white/5 backdrop-blur-sm rounded-xl p-4 animate-pulse"
+                    >
+                      <div className="aspect-square bg-white/10 rounded-lg mb-3" />
+                      <div className="h-6 bg-white/10 rounded w-3/4 mb-2" />
+                      <div className="h-4 bg-white/10 rounded w-1/2" />
+                    </div>
+                  ))
                   : displayedSongs.map((song, index) => (
-                      <div
-                        key={index}
-                        className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300"
-                      >
-                        <div className="aspect-square relative rounded-lg overflow-hidden mb-3">
-                          <Image
-                            src={song.artworkUrl}
-                            alt={song.name}
-                            fill
-                            className="object-cover"
-                          />
-                          <button
-                            onClick={() => handlePlay(song.previewUrl)}
-                            className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            {playingTrack === song.previewUrl ? (
-                              <Pause className="w-12 h-12 text-[#e68531]" />
-                            ) : (
-                              <Play className="w-12 h-12 text-white" />
-                            )}
-                          </button>
-                          {playingTrack === song.previewUrl && (
-                            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-                              <div
-                                className="h-full bg-[#e68531] transition-all duration-100"
-                                style={{ width: `${progress}%` }}
-                              />
-                            </div>
+                    <div
+                      key={index}
+                      className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300"
+                    >
+                      <div className="aspect-square relative rounded-lg overflow-hidden mb-3">
+                        <Image
+                          src={song.artworkUrl}
+                          alt={song.name}
+                          fill
+                          className="object-cover"
+                        />
+                        <button
+                          onClick={() => handlePlay(song.previewUrl)}
+                          className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          {playingTrack === song.previewUrl ? (
+                            <Pause className="w-12 h-12 text-[#e68531]" />
+                          ) : (
+                            <Play className="w-12 h-12 text-white" />
                           )}
-                        </div>
-                        <h3 className="font-medium text-lg truncate">
-                          {song.name}
-                        </h3>
+                        </button>
+                        {playingTrack === song.previewUrl && (
+                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+                            <div
+                              className="h-full bg-[#e68531] transition-all duration-100"
+                              style={{ width: `${progress}%` }}
+                            />
+                          </div>
+                        )}
                       </div>
-                    ))}
+                      <h3 className="font-medium text-lg truncate">
+                        {song.name}
+                      </h3>
+                    </div>
+                  ))}
               </div>
             </div>
 
@@ -503,8 +500,51 @@ export default function RossiPage() {
           {/* Horizontal separator line */}
           <div className="w-full h-px bg-white/10 my-12" />
 
+          {/* Instagram Posts Section */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Instagram Feed</h2>
+              <a
+                href="https://www.instagram.com/rossi.mp3/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#e68531] hover:text-[#e68531]/80 transition-colors flex items-center gap-2"
+              >
+                <Instagram className="w-5 h-5" />
+                <span>Follow on Instagram</span>
+              </a>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 [&_.instagram-media]:!bg-transparent [&_.instagram-media]:!shadow-none [&_.instagram-media]:!border-none [&_.instagram-media]:!p-0 [&_.instagram-media]:!w-full [&_.instagram-media]:!max-w-none">
+              {!instagramLoaded ? (
+                // Loading skeleton
+                [...Array(3)].map((_, index) => (
+                  <div key={index} className="aspect-square bg-white/5 rounded-xl animate-pulse" />
+                ))
+              ) : (
+                <>
+                  <blockquote
+                    className="instagram-media"
+                    data-instgrm-permalink="https://www.instagram.com/p/DGx3Kz7t4-O/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-version="12"
+                  ></blockquote>
+                  <blockquote
+                    className="instagram-media"
+                    data-instgrm-permalink="https://www.instagram.com/p/CokeybctbCy/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-version="12"
+                  ></blockquote>
+                  <blockquote
+                    className="instagram-media"
+                    data-instgrm-permalink="https://www.instagram.com/p/DKAYFk2KIzX/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-version="12"
+                  ></blockquote>
+                  {/* DJ7OFsOqgLh */}
+                </>
+              )}
+            </div>
+          </div>
+
           {/* Lyrics Section - Kept at the bottom */}
-          <LyricsSection songs={songLyrics} />
+          <LyricsSection songs={songLyricsRossi} />
         </div>
       </div>
     </div>

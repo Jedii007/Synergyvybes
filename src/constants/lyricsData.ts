@@ -182,3 +182,50 @@ Jedii`
   }
 ];
 
+
+export const songLyricsRossi = [
+  {
+    id: 1,
+    title: "YX4L",
+    lyrics: ``
+  },
+  {
+    id: 2,
+    title: "Assurance",
+    lyrics: `Soon`
+  },
+  {
+    id: 3,
+    title: "Earthq4ake",
+    lyrics: `Soon`
+  },
+  {
+    id: 4,
+    title: "Afro-5K",
+    lyrics: `Soon`
+  }
+];
+
+export const songLyricsScipa = [
+  {
+    id: 1,
+    title: "E Sharp!",
+    lyrics: ``
+  },
+  {
+    id: 2,
+    title: "Mask On",
+    lyrics: `Soon`
+  },
+  {
+    id: 3,
+    title: "Ryse",
+    lyrics: `Soon`
+  },
+  {
+    id: 4,
+    title: "Gloomy House",
+    lyrics: `Soon`
+  }
+];
+
