@@ -42,11 +42,11 @@ export default function Jedii007Page() {
     const upcomingTracks = [
         {
             name: "New Comer",
-            image: "/newcomer.jpg",
+            image: "/jedii/newcomer.jpg",
         },
         {
             name: "Bad Mixes II",
-            image: "/Badmixescover.png",
+            image: "/jedii/Badmixescover.png",
         },
         {
             name: "Speed-dial",
@@ -278,7 +278,7 @@ export default function Jedii007Page() {
                                     </div>
                                     <div className="bg-white/5 rounded-lg p-3">
                                         <div className="text-[#e68531] text-sm font-medium mb-1">Latest Release</div>
-                                        <div className="text-sm">4Y2KH FRIDAY</div>
+                                        <div className="text-sm">New Comer???</div>
                                     </div>
                                 </div>
                             </div>

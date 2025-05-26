@@ -14,18 +14,11 @@ import {
   Instagram,
   Twitter,
   Youtube,
-  Globe,
   Mail,
   Link2,
 } from "lucide-react";
 import LyricsSection from "@/components/LyricsSection";
-import { songLyricsRossi } from "@/constants/lyricsData";
-
-type Song = {
-  name: string;
-  artworkUrl: string;
-  previewUrl: string;
-};
+import { songLyricsScipa } from "@/constants/lyricsData";
 
 // Add type declaration for Instagram embed
 declare global {
@@ -38,7 +31,13 @@ declare global {
   }
 }
 
-export default function RossiPage() {
+type Song = {
+  name: string;
+  artworkUrl: string;
+  previewUrl: string;
+};
+
+export default function SkippyPage() {
   const [showAllTracks, setShowAllTracks] = useState(false);
   const [playingTrack, setPlayingTrack] = useState<string | null>(null);
   const [songs, setSongs] = useState<Song[]>([]);
@@ -46,14 +45,14 @@ export default function RossiPage() {
   const [progress, setProgress] = useState(0);
   const [showFullBio, setShowFullBio] = useState(false);
   const [email, setEmail] = useState("");
-  const [instagramLoaded, setInstagramLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [instagramLoaded, setInstagramLoaded] = useState(false);
 
   // Mock upcoming tracks
   const upcomingTracks = [
     {
-      name: "YX4L",
-      image: "/rossi/yxcov.jpeg",
+      name: "Flames Rising",
+      image: "/scipa/sharp.jpeg",
     },
     {
       name: "Coming-Soon",
@@ -62,33 +61,17 @@ export default function RossiPage() {
     {
       name: "Coming-Soon",
       image: "",
-    },
+    }
+    // Additional upcoming tracks can be added here
   ];
 
   useEffect(() => {
     async function loadData() {
-      const songsData = await getLatestTracks("1703621903");
+      const songsData = await getLatestTracks("1573791914");
       setSongs(songsData);
       setLoading(false);
     }
     loadData();
-  }, []);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.addEventListener("timeupdate", () => {
-        if (audioRef.current) {
-          const progress =
-            (audioRef.current.currentTime / audioRef.current.duration) * 100;
-          setProgress(progress);
-        }
-      });
-
-      audioRef.current.addEventListener("ended", () => {
-        setPlayingTrack(null);
-        setProgress(0);
-      });
-    }
   }, []);
 
   useEffect(() => {
@@ -120,20 +103,46 @@ export default function RossiPage() {
     }
   });
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener("timeupdate", () => {
+        if (audioRef.current) {
+          const progress =
+            (audioRef.current.currentTime / audioRef.current.duration) * 100;
+          setProgress(progress);
+        }
+      });
+
+      audioRef.current.addEventListener("ended", () => {
+        setPlayingTrack(null);
+        setProgress(0);
+      });
+    }
+  }, []);
+
   const displayedSongs = showAllTracks ? songs : songs.slice(0, 3);
 
-  const images: { src: string; alt: string; status?: "out-now" | "coming-soon" }[] = [
-    {
-      src: "/rossi/yx.jpeg",
-      alt: "Rossi - Image 2",
-      status: "out-now"
-    },
-    {
-      src: "/rossi/rosss.jpeg",
-      alt: "Rossi - YX4L",
-      status: "out-now"
-    }
-  ];
+  const images: {
+    src: string;
+    alt: string;
+    status?: "out-now" | "coming-soon";
+  }[] = [
+      // {
+      //   src: "/scipa/sharp.jpeg",
+      //   alt: "Skippy on Fir3 - Creative Journey Image 1",
+      //   status: "coming-soon",
+      // },
+      // {
+      //   src: "/scipa/ryse.jpeg",
+      //   alt: "Skippy on Fir3 - RYSE",
+      //   status: "out-now",
+      // },
+      {
+        src: "/scipa/rye.jpg",
+        alt: "Skippy on Fir3 - Live Performance",
+        status: "out-now",
+      },
+    ];
 
   const handlePlay = (previewUrl: string) => {
     if (playingTrack === previewUrl) {
@@ -159,46 +168,48 @@ export default function RossiPage() {
 
   return (
     <div className="min-h-screen p-4 sm:p-20 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white">
+      <audio ref={audioRef} className="hidden" controls />
       <div className="max-w-7xl mx-auto px-2 sm:px-4">
-        <audio ref={audioRef} className="hidden" controls />
         <ImageSlider images={images} />
         <div className="mt-8 space-y-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <h1 className="text-4xl font-bold">Rossi Sbw</h1>
+            <h1 className="text-4xl font-bold">Skippy on Fir3</h1>
             <div className="flex flex-col items-end">
               <span className="text-[#e68531] text-lg font-medium">
-                Artiste • Model
+                Artist • Model
               </span>
-              <span className="text-gray-600 dark:text-gray-400">Nigeria</span>
+              <span className="text-gray-600 dark:text-gray-400">
+              Gambia &amp; Sierra Leone
+              </span>
             </div>
           </div>
 
           {/* Social Media Icons */}
           <div className="flex items-center gap-4">
             <a
-              href="#"
+              href="https://www.instagram.com/skippy_on_fir3/"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Instagram className="w-6 h-6" />
             </a>
             {/* <a
-              href="#"
+              href="https://x.com/skippyonfir3"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Twitter className="w-6 h-6" />
             </a> */}
             <a
-              href="#"
+              href="https://www.youtube.com/@skippyonfir3/"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Youtube className="w-6 h-6" />
             </a>
-            {/* <a
-              href="#"
+            <a
+              href="https://fanlink.tv/skippy_on_fir3/"
               className="text-white hover:text-[#e68531] transition-colors"
             >
-              <Globe className="w-6 h-6" />
-            </a> */}
+              <Link2 className="w-6 h-6" />
+            </a>
           </div>
 
           {/* Artist Summary Section */}
@@ -207,8 +218,8 @@ export default function RossiPage() {
               <div className="flex-shrink-0">
                 <div className="w-48 h-48 md:w-32 md:h-32 rounded-xl md:rounded-full overflow-hidden border-2 border-[#e68531]/20">
                   <Image
-                    src="/rosii.jpg"
-                    alt="Rossi"
+                    src="/scipa/IMG_2142.jpg"
+                    alt="Skippy on Fir3"
                     width={192}
                     height={192}
                     className="object-cover w-full h-full"
@@ -217,44 +228,47 @@ export default function RossiPage() {
               </div>
               <div className="flex-1 space-y-4">
                 <div>
-                  <h2 className="text-2xl font-bold mb-2">About Rossi</h2>
+                  <h2 className="text-2xl font-bold mb-2">
+                    About Skippy on Fir3
+                  </h2>
                   <div className="space-y-4">
                     <p className="text-gray-300 leading-relaxed">
-                      A rising star in the Nigerian music scene, Rossi Sbw
-                      delivers a captivating blend of Afrobeats, Hip-hop and
-                      R&B, creating music that resonates with listeners across
-                      the African continent and beyond through his distinctive
-                      voice and authentic storytelling.
+                      Skippy on Fir3 is the embodiment of raw passion and
+                      artistic evolution—an artist whose music doesn't just
+                      play, it ignites. Born and raised in the heart of Banjul,
+                      the Gambia, Skippy channels the struggles, triumphs, and
+                      everyday poetry of their environment into a sound that's
+                      as real as it is revolutionary.
                     </p>
                     <div
                       className={`overflow-hidden transition-all duration-500 ${showFullBio ? "max-h-[500px]" : "max-h-0"}`}
                     >
                       <div className="space-y-4">
                         <p className="text-gray-300 leading-relaxed">
-                          Born and raised in Lagos, Nigeria, Victor Chima
-                          Okoroafor (Rossi) hails from the southeastern part of
-                          Nigeria in Abia State. As the first of four children
-                          and an undergraduate of Biomedicine at Cyprus
-                          International University, his journey is unique.
-                          Although a student of science, he always found himself
-                          in the crosshairs of art, undertaking literature and
-                          the spoken word.
+                          Blending gritty, streetwise lyricism with
+                          soul-stirring melodic flows, their music speaks to the
+                          heart of a generation navigating pain, perseverance,
+                          and the pursuit of purpose. Inspired by artists like
+                          Salif Keita, Youssou N'Dour, Mavado, Lagbaja, and
+                          Manzu, Skippy on Fir3 creates a unique sound that
+                          resonates across cultural boundaries.
                         </p>
                         <p className="text-gray-300 leading-relaxed">
-                          His love for poetry and sound created an interest in
-                          the production of melodies and sonic pleasure. Through
-                          the years, he has taken time to practice and work on
-                          his craftsmanship—not just to perfect it, but to
-                          understand what his identity and focus should be in
-                          the pursuit of art and sound.
+                          Skippy on Fir3 blurs the lines between vulnerability
+                          and strength, between the grind and the glory. Every
+                          verse feels lived-in, every hook a heartbeat. Their
+                          breakout single "RYSE" lit up local charts and social
+                          platforms, quickly earning them a loyal fanbase drawn
+                          to both the fire of their delivery and the depth of
+                          their message.
                         </p>
                         <p className="text-gray-300 leading-relaxed">
-                          Rossi's music is a reflection of his diverse influences
-                          and experiences, blending traditional Nigerian sounds
-                          with contemporary global music trends. His ability to
-                          seamlessly merge different genres while maintaining his
-                          unique voice has earned him recognition in the
-                          industry and a growing fanbase.
+                          Whether commanding a stage with electrifying energy or
+                          crafting lyrics that hit with emotional precision,
+                          Skippy on Fir3 isn't just making music—they're
+                          building a movement. And with each performance, each
+                          release, they're proving that their flame is only
+                          getting stronger.
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                           <div className="bg-white/5 rounded-lg p-4">
@@ -262,25 +276,40 @@ export default function RossiPage() {
                               Creative Evolution
                             </h3>
                             <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-                              <li>2022: Recorded "2:16"</li>
-                              <li>2023: Joined Synergyvybes</li>
-                              <li>2023: Released first official single "2:16" under Synergyvybes</li>
-                              <li>2024: Released debut album "Afro-5k"</li>
+                              <li>2015: First freestyle recordings (Banjul)</li>
+                              <li>
+                                2017: Formed local artist collective (The
+                                Gambia)
+                              </li>
+                              <li>
+                                2019: Released debut mixtape "Sparks" (Banjul)
+                              </li>
+                              <li>
+                                2020: Began experimenting with fusion sounds
+                              </li>
+                              <li>
+                                2021: Collaborative EP "Rising Heat" (West
+                                Africa)
+                              </li>
+                              <li>
+                                2023: Breakout single "RYSE" (International)
+                              </li>
+                              <li>2024: "The Flame Walk" Tour (West Africa)</li>
                             </ul>
                           </div>
 
                           <div className="bg-white/5 rounded-lg p-4">
                             <h3 className="text-[#e68531] font-medium mb-2">
-                              Artist DNA
+                              Sonic DNA
                             </h3>
                             <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-                              <li>Nigerian Cultural Heritage</li>
-                              <li>Contemporary Afrobeats</li>
-                              <li>Hip-hop Influences</li>
-                              <li>R&B Sensibilities</li>
-                              <li>Poetic Lyricism</li>
-                              <li>Scientific Precision</li>
-                              <li>Global Music Perspective</li>
+                              <li>Salif Keita's Vocal Expressions</li>
+                              <li>Youssou N'Dour's Cultural Fusion</li>
+                              <li>Mavado's Street Poetics</li>
+                              <li>Lagbaja's Rhythmic Innovation</li>
+                              <li>Manzu's Storytelling Depth</li>
+                              <li>West African Traditional Percussion</li>
+                              <li>Contemporary Urban Production</li>
                             </ul>
                           </div>
                         </div>
@@ -315,13 +344,13 @@ export default function RossiPage() {
                     <div className="text-[#e68531] text-sm font-medium mb-1">
                       Active Since
                     </div>
-                    <div className="text-sm">2018</div>
+                    <div className="text-sm">2015</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-[#e68531] text-sm font-medium mb-1">
                       Latest Release
                     </div>
-                    <div className="text-sm">YX4L</div>
+                    <div className="text-sm">E SHARP!</div>
                   </div>
                 </div>
               </div>
@@ -330,10 +359,7 @@ export default function RossiPage() {
 
           {/* A brief statement or lyric */}
           <div className="prose prose-lg dark:prose-invert">
-            <p>
-              "Feel the sour flavor of the human experience and cherish its
-              sweet bitter feeling"
-            </p>
+            <p>"From Banjul streets to global beats"</p>
           </div>
 
           {/* Main Content Grid - tracks side by side */}
@@ -441,7 +467,9 @@ export default function RossiPage() {
                       </>
                     ) : (
                       <div className="aspect-square flex items-center justify-center rounded-lg bg-white/10">
-                        <h3 className="font-medium text-lg text-center px-2">{song.name}</h3>
+                        <h3 className="font-medium text-lg text-center px-2">
+                          {song.name}
+                        </h3>
                       </div>
                     )}
                   </div>
@@ -450,7 +478,10 @@ export default function RossiPage() {
 
               {/* Newsletter CTA that appears when Show More is triggered */}
               <div
-                className={`mt-8 transition-all duration-500 ${showAllTracks ? "opacity-100 max-h-[500px]" : "opacity-0 max-h-0 overflow-hidden"}`}
+                className={`mt-8 transition-all duration-500 ${showAllTracks
+                  ? "opacity-100 max-h-[500px]"
+                  : "opacity-0 max-h-0 overflow-hidden"
+                  }`}
               >
                 <div className="bg-gradient-to-r from-[#e68531]/20 to-[#e68531]/10 backdrop-blur-sm rounded-2xl p-6">
                   <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -497,7 +528,7 @@ export default function RossiPage() {
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">Instagram Feed</h2>
               <a
-                href="https://www.instagram.com/rossi.mp3/"
+                href="https://www.instagram.com/skippa.mp3/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#e68531] hover:text-[#e68531]/80 transition-colors flex items-center gap-2"
@@ -516,27 +547,26 @@ export default function RossiPage() {
                 <>
                   <blockquote
                     className="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/DGx3Kz7t4-O/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-permalink="https://www.instagram.com/p/DHHN1NUOgl7/?utm_source=ig_embed&amp;utm_campaign=loading"
                     data-instgrm-version="12"
                   ></blockquote>
                   <blockquote
                     className="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/CokeybctbCy/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-permalink="https://www.instagram.com/p/DJZ5hWNIBPQ/?utm_source=ig_embed&amp;utm_campaign=loading"
                     data-instgrm-version="12"
                   ></blockquote>
                   <blockquote
                     className="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/DKAYFk2KIzX/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-permalink="https://www.instagram.com/p/C3UVZGJIpDh/?utm_source=ig_embed&amp;utm_campaign=loading"
                     data-instgrm-version="12"
                   ></blockquote>
-                  {/* DJ7OFsOqgLh */}
                 </>
               )}
             </div>
           </div>
 
           {/* Lyrics Section - Kept at the bottom */}
-          <LyricsSection songs={songLyricsRossi} />
+          <LyricsSection songs={songLyricsScipa} />
         </div>
       </div>
     </div>
