@@ -50,8 +50,8 @@ export const featuredArtists: Artist[] = [
     id: 1,
     name: "Cissh",
     medium: "Visual Artist",
-    image: "/spotlight/Main.png",
-    wideImage: "/spotlight/Exhibitions and Art Fairs.png",
+    image: "/spotlight/Main.jpeg",
+    wideImage: "/spotlight/Exhibitions and Art Fairs.jpg",
     spotlightImage: "/spotlight/Synergy Group 258.jpg",
     featured: true,
     slug: "cissh",
@@ -97,12 +97,6 @@ export const featuredArtists: Artist[] = [
         image: "/spotlight/Self Centered.jpg",
         title: "Self Centered",
         description: "An introspective piece exploring themes of self-identity and perception.",
-        type: "image"
-      },
-      {
-        image: "/spotlight/Synergy Group 258.jpg",
-        title: "The Theatrics of Motherhood",
-        description: "A powerful exploration of the journey into motherhood through dramatic visual storytelling.",
         type: "image"
       }
     ],
