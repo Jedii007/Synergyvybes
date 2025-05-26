@@ -58,49 +58,49 @@ export const featuredArtists: Artist[] = [
     bio: "My artistic practice is a reflection of my experiences, a visual diary of my interactions with the world. Through animation, sculpture, and painting, I capture and preserve fleeting moments, transforming them into a narrative that is both personal and evocative. Each piece serves as a fragment of my memory, a thought frozen in time. My journey as an artist began under the influence of my brother, who was establishing his own niche in the Zimbabwean art scene. Inspired by his artistic endeavors, I started exploring painting and found solace in the realistic depiction of subjects. Over time, I gravitated towards abstract line art, where I could create my own unique world. Drawing inspiration from the renowned Zimbabwean stone carvings of faces, I incorporated these elements into my work, telling stories that intertwined my artistic heritage with contemporary themes. As a multimedia artist, I embrace a variety of mediums, including painting, sculpting, animation, and social advocacy. My work is driven by a desire to engage with the world on a deeper level, to spark conversations, and to inspire change. Through my art, I strive to create meaningful experiences that resonate with audiences and leave a lasting impact.",
     showcase: [
       {
-        image: "/spotlight/A family of three.png",
+        image: "/spotlight/Family of Three.jpg",
         title: "Family Series",
         description: "An intimate exploration of family dynamics through visual art.",
         type: "image"
       },
       {
-        image: "/spotlight/Cowboy Blues.png",
+        image: "/spotlight/Cowboy Blues.jpg",
         title: "Cowboy Blues",
         description: "A unique blend of traditional and contemporary themes in this striking piece.",
         type: "image"
       },
       {
-        image: "/spotlight/Fashion sculptures.JPG",
+        image: "/spotlight/Fashion Sculptures.jpg",
         title: "Fashion Sculptures",
         description: "Innovative sculptures that bridge the gap between fashion and art.",
         type: "image"
       },
       {
-        image: "/spotlight/Growing blocks.PNG",
+        image: "/spotlight/Growing Blocks.jpg",
         title: "Growing Blocks",
         description: "An exploration of growth and transformation through geometric forms.",
         type: "image"
       },
       {
-        image: "/spotlight/Kaapstaap potrait.png",
+        image: "/spotlight/Kaapstaap Portrait.jpg",
         title: "Kaapstaap Portrait",
         description: "A striking portrait capturing the essence of character and identity.",
         type: "image"
       },
       {
-        image: "/spotlight/Re-inventing Myself.PNG",
+        image: "/spotlight/Reinventing Myself.jpg",
         title: "Re-inventing Myself",
         description: "A personal journey of transformation and self-discovery through art.",
         type: "image"
       },
       {
-        image: "/spotlight/Self Centered.PNG",
+        image: "/spotlight/Self Centered.jpg",
         title: "Self Centered",
         description: "An introspective piece exploring themes of self-identity and perception.",
         type: "image"
       },
       {
-        image: "/spotlight/The Theatrics Of a soon to be mother Artwork-min.jpg",
+        image: "/spotlight/Synergy Group 258.jpg",
         title: "The Theatrics of Motherhood",
         description: "A powerful exploration of the journey into motherhood through dramatic visual storytelling.",
         type: "image"

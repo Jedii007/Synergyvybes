@@ -207,7 +207,7 @@ export default function RossiPage() {
               <div className="flex-shrink-0">
                 <div className="w-48 h-48 md:w-32 md:h-32 rounded-xl md:rounded-full overflow-hidden border-2 border-[#e68531]/20">
                   <Image
-                    src="/rosii.jpg"
+                    src="/rossi/rosii.jpg"
                     alt="Rossi"
                     width={192}
                     height={192}

@@ -46,7 +46,7 @@ export default function Jedii007Page() {
         },
         {
             name: "Bad Mixes II",
-            image: "/jedii/Badmixescover.png",
+            image: "/jedii/Bad Mixes Cover.jpg",
         },
         {
             name: "Speed-dial",
@@ -187,7 +187,7 @@ export default function Jedii007Page() {
                             <div className="flex-shrink-0">
                                 <div className="w-48 h-48 md:w-32 md:h-32 rounded-xl md:rounded-full overflow-hidden border-2 border-[#e68531]/20">
                                     <Image
-                                        src="/IMG_1729.png"
+                                        src="/jedii/IMG_1729.png"
                                         alt="Jedii007"
                                         width={192}
                                         height={192}
