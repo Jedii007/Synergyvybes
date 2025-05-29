@@ -349,10 +349,9 @@ export default function SkippyPage() {
             </div>
           </div>
 
-          {/* A brief statement or lyric */}
-          <div className="prose prose-lg dark:prose-invert">
-            <p>"From Banjul streets to global beats"</p>
-          </div>
+          <div className="text-xl italic font-light text-[#e68531] ">
+                            <p>Afrikan Rebel!!!</p>
+                        </div>
 
           {/* Main Content Grid - tracks side by side */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12 relative">

@@ -194,8 +194,8 @@ export default function RossiPage() {
               <Youtube className="w-6 h-6" />
             </a>
             <a href="https://linktr.ee/Synergyvybes" className="text-white hover:text-[#e68531] transition-colors">
-                            <Link2 className="w-6 h-6" />
-                        </a>
+              <Link2 className="w-6 h-6" />
+            </a>
             {/* <a
               href="#"
               className="text-white hover:text-[#e68531] transition-colors"
@@ -331,12 +331,8 @@ export default function RossiPage() {
             </div>
           </div>
 
-          {/* A brief statement or lyric */}
-          <div className="prose prose-lg dark:prose-invert">
-            <p>
-              "Feel the sour flavor of the human experience and cherish its
-              sweet bitter feeling"
-            </p>
+          <div className="text-xl italic font-light text-[#e68531] ">
+            <p>Combination!!!</p>
           </div>
 
           {/* Main Content Grid - tracks side by side */}

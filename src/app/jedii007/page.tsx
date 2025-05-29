@@ -389,9 +389,8 @@ export default function Jedii007Page() {
                         </div>
                     </div>
 
-                    {/* A brief statement or lyric */}
-                    <div className="prose prose-lg dark:prose-invert">
-                        <p>Geng geng</p>
+                    <div className="text-xl italic font-light text-[#e68531] ">
+                        <p>Geng Geng!!!</p>
                     </div>
 
                     {/* Main Content Grid - tracks side by side */}
