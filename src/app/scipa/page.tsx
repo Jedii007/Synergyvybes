@@ -51,7 +51,7 @@ export default function SkippyPage() {
   // Mock upcoming tracks
   const upcomingTracks = [
     {
-      name: "Flames Rising",
+      name: "E SHARP!",
       image: "/scipa/sharp.jpeg",
     },
     {
@@ -187,7 +187,7 @@ export default function SkippyPage() {
           {/* Social Media Icons */}
           <div className="flex items-center gap-4">
             <a
-              href="https://www.instagram.com/skippy_on_fir3/"
+              href="https://www.youtube.com/@skippyonfir3"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Instagram className="w-6 h-6" />
@@ -241,7 +241,7 @@ export default function SkippyPage() {
                       as real as it is revolutionary.
                     </p>
                     <div
-                      className={`overflow-hidden transition-all duration-500 ${showFullBio ? "max-h-[500px]" : "max-h-0"}`}
+                      className={`relative transition-all duration-500 ${showFullBio ? 'max-h-[60vh] overflow-y-auto' : 'max-h-0 overflow-hidden'}`}
                     >
                       <div className="space-y-4">
                         <p className="text-gray-300 leading-relaxed">
@@ -277,24 +277,16 @@ export default function SkippyPage() {
                             </h3>
                             <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
                               <li>2015: First freestyle recordings (Banjul)</li>
-                              <li>
+                              {/* <li>
                                 2017: Formed local artist collective (The
                                 Gambia)
+                              </li> */}
+                              <li>
+                                2022: Began experimenting with fusion sounds
                               </li>
                               <li>
-                                2019: Released debut mixtape "Sparks" (Banjul)
+                                2023: First EP "RYSE" (International)
                               </li>
-                              <li>
-                                2020: Began experimenting with fusion sounds
-                              </li>
-                              <li>
-                                2021: Collaborative EP "Rising Heat" (West
-                                Africa)
-                              </li>
-                              <li>
-                                2023: Breakout single "RYSE" (International)
-                              </li>
-                              <li>2024: "The Flame Walk" Tour (West Africa)</li>
                             </ul>
                           </div>
 
@@ -338,13 +330,13 @@ export default function SkippyPage() {
                     <div className="text-[#e68531] text-sm font-medium mb-1">
                       Genres
                     </div>
-                    <div className="text-sm">Alté Everything</div>
+                    <div className="text-sm">Alternative Music</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-[#e68531] text-sm font-medium mb-1">
                       Active Since
                     </div>
-                    <div className="text-sm">2015</div>
+                    <div className="text-sm">2013</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-[#e68531] text-sm font-medium mb-1">

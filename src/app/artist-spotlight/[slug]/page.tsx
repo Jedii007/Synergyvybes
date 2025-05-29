@@ -6,6 +6,115 @@ import Link from "next/link";
 import { useParams, notFound } from "next/navigation";
 import { featuredArtists } from "@/constants/featuredArtistesData";
 import WorkModal from "@/components/WorkModal";
+import { Suspense } from "react";
+
+interface Work {
+  image: string;
+  title: string;
+  type: "image" | "audio";
+  description: string;
+  audioUrl?: string;
+}
+
+interface ExhibitionEvent {
+  title: string;
+  location?: string;
+  description?: string;
+}
+
+interface ExhibitionYear {
+  year: string;
+  events: ExhibitionEvent[];
+}
+
+interface InterviewQuestion {
+  q: string;
+  a: string;
+}
+
+interface Interview {
+  quote: string;
+  questions: InterviewQuestion[];
+}
+
+// Separate client component for the work grid
+const WorkGrid = ({ works, onWorkSelect }: { works: Work[], onWorkSelect: (work: Work) => void }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {works.map((work, index) => (
+      <div
+        key={index}
+        className="group relative h-64 rounded-lg overflow-hidden shadow-md cursor-pointer"
+        onClick={() => onWorkSelect(work)}
+      >
+        <Image
+          src={work.image}
+          alt={work.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          loading={index < 4 ? "eager" : "lazy"}
+          quality={75}
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+          <div className="text-center">
+            <p className="text-white font-medium text-lg">{work.title}</p>
+            {work.type === "audio" && (
+              <span className="text-xs text-[#e68531] mt-2 inline-block">Click to play preview</span>
+            )}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
+// Separate client component for the exhibitions timeline
+const ExhibitionsTimeline = ({ exhibitions }: { exhibitions: ExhibitionYear[] }) => (
+  <div className="space-y-8">
+    {exhibitions.map((year, index) => (
+      <div key={index} className="relative pl-8 border-l-2 border-[#e68531]">
+        <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#e68531]"></div>
+        <h3 className="text-2xl font-bold mb-4">{year.year}</h3>
+        <ul className="space-y-4">
+          {year.events.map((event, eventIndex) => (
+            <li key={eventIndex} className="pl-4">
+              <h4 className="font-semibold text-lg">{event.title}</h4>
+              {event.location && (
+                <p className="text-gray-600 dark:text-gray-300">{event.location}</p>
+              )}
+              {event.description && (
+                <p className="text-gray-500 dark:text-gray-400 mt-1">{event.description}</p>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+);
+
+// Separate client component for the interview section
+const InterviewSection = ({ interview }: { interview: Interview | null }) => {
+  if (!interview) return null;
+
+  return (
+    <div>
+      <div className="relative bg-[#e68531]/10 p-6 rounded-lg mb-8">
+        <p className="text-xl italic font-light text-[#e68531] ml-8 relative z-10">
+          {interview.quote}
+        </p>
+      </div>
+      <div className="space-y-6">
+        {interview.questions.map((item, index) => (
+          <div key={index}>
+            <h3 className="text-lg font-bold mb-2">{item.q}</h3>
+            <p className="text-gray-700 dark:text-gray-300">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default function ArtistSpotlightPage() {
   const params = useParams();
@@ -23,76 +132,31 @@ export default function ArtistSpotlightPage() {
   }
 
   const [activeTab, setActiveTab] = useState("work");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedWork, setSelectedWork] = useState(() => ({
-    ...artist.showcase[0],
-    type: artist.showcase[0].type as "image" | "audio"
-  }));
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    selectedWork: {
+      ...artist.showcase[0],
+      type: artist.showcase[0].type as "image" | "audio"
+    }
+  });
+
+  const handleWorkSelect = (work: Work) => {
+    setModalState({
+      isOpen: true,
+      selectedWork: {
+        ...work,
+        type: work.type as "image" | "audio"
+      }
+    });
+  };
 
   // Memoize tab content to prevent unnecessary re-renders
   const tabContent = useMemo(() => {
     switch (activeTab) {
       case "work":
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {artist.showcase.map((work, index) => (
-              <div
-                key={index}
-                className="group relative h-64 rounded-lg overflow-hidden shadow-md cursor-pointer"
-                onClick={() => {
-                  setSelectedWork({
-                    ...work,
-                    type: work.type as "image" | "audio"
-                  });
-                  setIsModalOpen(true);
-                }}
-              >
-                <Image
-                  src={work.image}
-                  alt={work.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading={index < 4 ? "eager" : "lazy"}
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                  <div className="text-center">
-                    <p className="text-white font-medium text-lg">{work.title}</p>
-                    {work.type === "audio" && (
-                      <span className="text-xs text-[#e68531] mt-2 inline-block">Click to play preview</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        );
-
+        return <WorkGrid works={artist.showcase} onWorkSelect={handleWorkSelect} />;
       case "exhibitions":
-        return (
-          <div className="space-y-8">
-            {artist.exhibitions.map((year, index) => (
-              <div key={index} className="relative pl-8 border-l-2 border-[#e68531]">
-                <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#e68531]"></div>
-                <h3 className="text-2xl font-bold mb-4">{year.year}</h3>
-                <ul className="space-y-4">
-                  {year.events.map((event, eventIndex) => (
-                    <li key={eventIndex} className="pl-4">
-                      <h4 className="font-semibold text-lg">{event.title}</h4>
-                      {event.location && (
-                        <p className="text-gray-600 dark:text-gray-300">{event.location}</p>
-                      )}
-                      {event.description && (
-                        <p className="text-gray-500 dark:text-gray-400 mt-1">{event.description}</p>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        );
-
+        return <ExhibitionsTimeline exhibitions={artist.exhibitions} />;
       case "about":
         return (
           <div>
@@ -118,37 +182,19 @@ export default function ArtistSpotlightPage() {
             </div>
           </div>
         );
-
       case "interview":
-        return artist.interview ? (
-          <div>
-            <div className="relative bg-[#e68531]/10 p-6 rounded-lg mb-8">
-              <p className="text-xl italic font-light text-[#e68531] ml-8 relative z-10">
-                {artist.interview.quote}
-              </p>
-            </div>
-            <div className="space-y-6">
-              {artist.interview.questions.map((item, index) => (
-                <div key={index}>
-                  <h3 className="text-lg font-bold mb-2">{item.q}</h3>
-                  <p className="text-gray-700 dark:text-gray-300">{item.a}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : null;
-
+        return <InterviewSection interview={artist.interview || null} />;
       default:
         return null;
     }
   }, [activeTab, artist]);
 
   return (
-    <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
+    <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white">
       <WorkModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        work={selectedWork}
+        isOpen={modalState.isOpen}
+        onClose={() => setModalState(prev => ({ ...prev, isOpen: false }))}
+        work={modalState.selectedWork}
       />
 
       <div className="max-w-7xl mx-auto">
@@ -182,6 +228,7 @@ export default function ArtistSpotlightPage() {
                     sizes="100vw"
                     priority
                     className="object-cover"
+                    quality={85}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
                     <div className="p-6">
@@ -211,7 +258,9 @@ export default function ArtistSpotlightPage() {
 
                 {/* Tab Content */}
                 <div className="p-6">
-                  {tabContent}
+                  <Suspense fallback={<div>Loading...</div>}>
+                    {tabContent}
+                  </Suspense>
                 </div>
               </div>
             </div>

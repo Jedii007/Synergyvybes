@@ -176,7 +176,7 @@ export default function RossiPage() {
           {/* Social Media Icons */}
           <div className="flex items-center gap-4">
             <a
-              href="#"
+              href="https://www.instagram.com/r0ssi.sbw/"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Instagram className="w-6 h-6" />
@@ -188,11 +188,14 @@ export default function RossiPage() {
               <Twitter className="w-6 h-6" />
             </a> */}
             <a
-              href="#"
+              href="https://music.youtube.com/channel/UCHB4XI72i_zoiZZq3AsYc6A?si=7wnOvF3-rrBIjZ5Q"
               className="text-white hover:text-[#e68531] transition-colors"
             >
               <Youtube className="w-6 h-6" />
             </a>
+            <a href="https://linktr.ee/Synergyvybes" className="text-white hover:text-[#e68531] transition-colors">
+                            <Link2 className="w-6 h-6" />
+                        </a>
             {/* <a
               href="#"
               className="text-white hover:text-[#e68531] transition-colors"
@@ -227,7 +230,7 @@ export default function RossiPage() {
                       voice and authentic storytelling.
                     </p>
                     <div
-                      className={`overflow-hidden transition-all duration-500 ${showFullBio ? "max-h-[500px]" : "max-h-0"}`}
+                      className={`relative transition-all duration-500 ${showFullBio ? 'max-h-[60vh] overflow-y-auto' : 'max-h-0 overflow-hidden'}`}
                     >
                       <div className="space-y-4">
                         <p className="text-gray-300 leading-relaxed">
@@ -309,7 +312,7 @@ export default function RossiPage() {
                     <div className="text-[#e68531] text-sm font-medium mb-1">
                       Genres
                     </div>
-                    <div className="text-sm">Alté Everything</div>
+                    <div className="text-sm">Alternative Music</div>
                   </div>
                   <div className="bg-white/5 rounded-lg p-3">
                     <div className="text-[#e68531] text-sm font-medium mb-1">

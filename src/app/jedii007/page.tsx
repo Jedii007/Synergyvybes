@@ -5,10 +5,18 @@ import Image from "next/image";
 import { getLatestTracks } from "@/services/appleMusic";
 import ImageSlider from "@/components/ImageSlider";
 import BlogPreview from "@/components/BlogPreview";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Play, Pause, ChevronDown, ChevronUp, Instagram, Twitter, Youtube, Mail, Link2 } from "lucide-react";
 import LyricsSection from "@/components/LyricsSection";
 import { songLyrics } from "@/constants/lyricsData";
+import dynamic from 'next/dynamic';
+import React from "react";
+
+// Lazy load heavy components
+const InstagramFeed = dynamic(() => import('@/components/InstagramFeed'), {
+    ssr: false,
+    loading: () => <InstagramFeedSkeleton />
+});
 
 // Add type declaration for Instagram embed
 declare global {
@@ -27,6 +35,75 @@ type Song = {
     previewUrl: string;
 };
 
+// Skeleton component for Instagram feed
+const InstagramFeedSkeleton = () => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {[...Array(3)].map((_, index) => (
+            <div key={index} className="aspect-square bg-white/5 rounded-xl animate-pulse" />
+        ))}
+    </div>
+);
+
+// Memoized track component
+const TrackCard = React.memo(({
+    song,
+    index,
+    playingTrack,
+    progress,
+    onPlay
+}: {
+    song: Song;
+    index: number;
+    playingTrack: string | null;
+    progress: number;
+    onPlay: (previewUrl: string) => void;
+}) => {
+    const isPlaying = playingTrack === song.previewUrl;
+
+    const handlePlayClick = useCallback(() => {
+        onPlay(song.previewUrl);
+    }, [song.previewUrl, onPlay]);
+
+    return (
+        <div className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
+            <div className="aspect-square relative rounded-lg overflow-hidden mb-3">
+                <Image
+                    src={song.artworkUrl}
+                    alt={song.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                    className="object-cover"
+                    priority={index < 3} // Prioritize first 3 images
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                />
+                <button
+                    onClick={handlePlayClick}
+                    className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                    aria-label={isPlaying ? `Pause ${song.name}` : `Play ${song.name}`}
+                >
+                    {isPlaying ? (
+                        <Pause className="w-12 h-12 text-[#e68531]" />
+                    ) : (
+                        <Play className="w-12 h-12 text-white" />
+                    )}
+                </button>
+                {isPlaying && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+                        <div
+                            className="h-full bg-[#e68531] transition-all duration-100"
+                            style={{ width: `${progress}%` }}
+                        />
+                    </div>
+                )}
+            </div>
+            <h3 className="font-medium text-lg truncate">{song.name}</h3>
+        </div>
+    );
+});
+
+TrackCard.displayName = 'TrackCard';
+
 export default function Jedii007Page() {
     const [showAllTracks, setShowAllTracks] = useState(false);
     const [playingTrack, setPlayingTrack] = useState<string | null>(null);
@@ -35,11 +112,10 @@ export default function Jedii007Page() {
     const [progress, setProgress] = useState(0);
     const [showFullBio, setShowFullBio] = useState(false);
     const [email, setEmail] = useState("");
-    const [instagramLoaded, setInstagramLoaded] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
-    // Mock upcoming tracks
-    const upcomingTracks = [
+    // Memoize static data
+    const upcomingTracks = useMemo(() => [
         {
             name: "New Comer",
             image: "/jedii/newcomer.jpg",
@@ -52,55 +128,91 @@ export default function Jedii007Page() {
             name: "Speed-dial",
             image: "",
         }
-    ];
+    ], []);
 
-    useEffect(() => {
-        async function loadData() {
-            const songsData = await getLatestTracks("1623914059");
-            setSongs(songsData);
-            setLoading(false);
-        }
-        loadData();
-    }, []);
-
-    https: useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.addEventListener("timeupdate", () => {
-                if (audioRef.current) {
-                    const progress =
-                        (audioRef.current.currentTime / audioRef.current.duration) * 100;
-                    setProgress(progress);
-                }
-            });
-
-            audioRef.current.addEventListener("ended", () => {
-                setPlayingTrack(null);
-                setProgress(0);
-            });
-        }
-    }, []);
-
-    const displayedSongs = showAllTracks ? songs : songs.slice(0, 3);
-
-    const images: { src: string; alt: string; status?: "out-now" | "coming-soon" }[] = [
+    const images = useMemo(() => [
         {
             src: "/jedii/4y2kh.jpg",
             alt: "Jedii007",
-            status: "out-now"
+            status: "out-now" as const
         },
         {
             src: "/jedii/newcomer.jpg",
             alt: "Jedii007 - Creative Journey Image 2",
-            status: "out-now"
+            status: "out-now" as const
         },
         {
             src: "/jedii/Bad Mixes Cover.jpg",
             alt: "Jedii007 - Creative Journey Image 3",
-            status: "out-now"
+            status: "out-now" as const
         }
-    ];
+    ], []);
 
-    const handlePlay = (previewUrl: string) => {
+    // Optimize data loading with error handling and retry
+    useEffect(() => {
+        let mounted = true;
+        let retryCount = 0;
+        const maxRetries = 3;
+
+        async function loadData() {
+            try {
+                const songsData = await getLatestTracks("1623914059");
+                if (mounted) {
+                    setSongs(songsData);
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error('Failed to load tracks:', error);
+                if (retryCount < maxRetries && mounted) {
+                    retryCount++;
+                    setTimeout(loadData, 1000 * retryCount); // Exponential backoff
+                } else if (mounted) {
+                    setLoading(false);
+                }
+            }
+        }
+
+        loadData();
+
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
+    // Optimize audio event listeners
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        const handleTimeUpdate = () => {
+            if (audio) {
+                const progressValue = (audio.currentTime / audio.duration) * 100;
+                setProgress(progressValue);
+            }
+        };
+
+        const handleEnded = () => {
+            setPlayingTrack(null);
+            setProgress(0);
+        };
+
+        audio.addEventListener("timeupdate", handleTimeUpdate, { passive: true });
+        audio.addEventListener("ended", handleEnded, { passive: true });
+
+        return () => {
+            audio.removeEventListener("timeupdate", handleTimeUpdate);
+            audio.removeEventListener("ended", handleEnded);
+        };
+    }, []);
+
+    // Memoize computed values
+    const displayedSongs = useMemo(() =>
+        showAllTracks ? songs : songs.slice(0, 3),
+        [showAllTracks, songs]
+    );
+
+    // Memoize callback functions
+    const handlePlay = useCallback((previewUrl: string) => {
         if (playingTrack === previewUrl) {
             setPlayingTrack(null);
             if (audioRef.current) {
@@ -110,50 +222,40 @@ export default function Jedii007Page() {
             setPlayingTrack(previewUrl);
             if (audioRef.current) {
                 audioRef.current.src = previewUrl;
-                audioRef.current.play();
+                audioRef.current.play().catch(console.error);
             }
         }
-    };
+    }, [playingTrack]);
 
-    const handleSubscribe = (e: React.FormEvent) => {
+    const handleSubscribe = useCallback((e: React.FormEvent) => {
         e.preventDefault();
         // Handle newsletter subscription logic here
         alert(`Thank you for subscribing with ${email}!`);
         setEmail("");
-    };
+    }, [email]);
 
-    useEffect(() => {
-        // Load Instagram embed script
-        const script = document.createElement('script');
-        script.src = '//www.instagram.com/embed.js';
-        script.async = true;
-        script.onload = () => {
-            // Initialize Instagram embeds
-            if (window.instgrm) {
-                window.instgrm.Embeds.process();
-                setInstagramLoaded(true);
-            }
-        };
-        document.body.appendChild(script);
-
-        return () => {
-            // Cleanup script on component unmount
-            if (script.parentNode) {
-                script.parentNode.removeChild(script);
-            }
-        };
+    const toggleShowAllTracks = useCallback(() => {
+        setShowAllTracks(prev => !prev);
     }, []);
 
-    // Re-initialize Instagram embeds when the component updates
-    useEffect(() => {
-        if (window.instgrm) {
-            window.instgrm.Embeds.process();
-        }
-    });
+    const toggleShowFullBio = useCallback(() => {
+        setShowFullBio(prev => !prev);
+    }, []);
+
+    // Loading skeleton component
+    const TrackSkeleton = useMemo(() => (
+        [...Array(3)].map((_, index) => (
+            <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-4 animate-pulse">
+                <div className="aspect-square bg-white/10 rounded-lg mb-3" />
+                <div className="h-6 bg-white/10 rounded w-3/4 mb-2" />
+                <div className="h-4 bg-white/10 rounded w-1/2" />
+            </div>
+        ))
+    ), []);
 
     return (
         <div className="min-h-screen p-4 sm:p-20 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white">
-            <audio ref={audioRef} className="hidden" controls />
+            <audio ref={audioRef} className="hidden" preload="none" />
             <div className="max-w-7xl mx-auto px-2 sm:px-4">
                 <ImageSlider images={images} />
                 <div className="mt-8 space-y-6">
@@ -167,16 +269,16 @@ export default function Jedii007Page() {
 
                     {/* Social Media Icons */}
                     <div className="flex items-center gap-4">
-                        <a href="https://www.instagram.com/jedii.heic/" className="text-white hover:text-[#e68531] transition-colors">
+                        <a href="https://www.instagram.com/jedii.heic/" className="text-white hover:text-[#e68531] transition-colors" aria-label="Instagram">
                             <Instagram className="w-6 h-6" />
                         </a>
-                        <a href="https://x.com/jedii_txt" className="text-white hover:text-[#e68531] transition-colors">
+                        <a href="https://x.com/jedii_txt" className="text-white hover:text-[#e68531] transition-colors" aria-label="Twitter">
                             <Twitter className="w-6 h-6" />
                         </a>
-                        <a href="https://www.youtube.com/@jedii.mp4/" className="text-white hover:text-[#e68531] transition-colors">
+                        <a href="https://www.youtube.com/@jedii.mp4/" className="text-white hover:text-[#e68531] transition-colors" aria-label="YouTube">
                             <Youtube className="w-6 h-6" />
                         </a>
-                        <a href="https://linktr.ee/Synergyvybes" className="text-white hover:text-[#e68531] transition-colors">
+                        <a href="https://linktr.ee/Synergyvybes" className="text-white hover:text-[#e68531] transition-colors" aria-label="Linktree">
                             <Link2 className="w-6 h-6" />
                         </a>
                     </div>
@@ -187,11 +289,13 @@ export default function Jedii007Page() {
                             <div className="flex-shrink-0">
                                 <div className="w-48 h-48 md:w-32 md:h-32 rounded-xl md:rounded-full overflow-hidden border-2 border-[#e68531]/20">
                                     <Image
-                                        src="/jedii/IMG_1729.png"
+                                        src="/jedii/IMG_1729.jpeg"
                                         alt="Jedii007"
                                         width={192}
                                         height={192}
                                         className="object-cover w-full h-full"
+                                        priority
+                                        sizes="(max-width: 768px) 192px, 128px"
                                     />
                                 </div>
                             </div>
@@ -250,7 +354,7 @@ export default function Jedii007Page() {
                                             </div>
                                         </div>
                                         <button
-                                            onClick={() => setShowFullBio(!showFullBio)}
+                                            onClick={toggleShowFullBio}
                                             className="text-[#e68531] hover:text-[#e68531]/80 transition-colors flex items-center gap-2 group"
                                         >
                                             {showFullBio ? (
@@ -270,7 +374,7 @@ export default function Jedii007Page() {
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                     <div className="bg-white/5 rounded-lg p-3">
                                         <div className="text-[#e68531] text-sm font-medium mb-1">Genres</div>
-                                        <div className="text-sm">Alté Everything</div>
+                                        <div className="text-sm">Alternative Music</div>
                                     </div>
                                     <div className="bg-white/5 rounded-lg p-3">
                                         <div className="text-[#e68531] text-sm font-medium mb-1">Active Since</div>
@@ -287,9 +391,7 @@ export default function Jedii007Page() {
 
                     {/* A brief statement or lyric */}
                     <div className="prose prose-lg dark:prose-invert">
-                        <p>
-                            Geng geng
-                        </p>
+                        <p>Geng geng</p>
                     </div>
 
                     {/* Main Content Grid - tracks side by side */}
@@ -303,7 +405,7 @@ export default function Jedii007Page() {
                                 <h2 className="text-2xl font-bold">Latest Tracks</h2>
                                 {songs.length > 3 && (
                                     <button
-                                        onClick={() => setShowAllTracks(!showAllTracks)}
+                                        onClick={toggleShowAllTracks}
                                         className="text-[#e68531] hover:text-[#e68531]/80 transition-colors flex items-center gap-2"
                                     >
                                         {showAllTracks ? (
@@ -321,46 +423,16 @@ export default function Jedii007Page() {
                                 )}
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                {loading ? (
-                                    // Loading skeleton
-                                    [...Array(3)].map((_, index) => (
-                                        <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-4 animate-pulse">
-                                            <div className="aspect-square bg-white/10 rounded-lg mb-3" />
-                                            <div className="h-6 bg-white/10 rounded w-3/4 mb-2" />
-                                            <div className="h-4 bg-white/10 rounded w-1/2" />
-                                        </div>
-                                    ))
-                                ) : (
+                                {loading ? TrackSkeleton : (
                                     displayedSongs.map((song, index) => (
-                                        <div key={index} className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
-                                            <div className="aspect-square relative rounded-lg overflow-hidden mb-3">
-                                                <Image
-                                                    src={song.artworkUrl}
-                                                    alt={song.name}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                                <button
-                                                    onClick={() => handlePlay(song.previewUrl)}
-                                                    className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                                                >
-                                                    {playingTrack === song.previewUrl ? (
-                                                        <Pause className="w-12 h-12 text-[#e68531]" />
-                                                    ) : (
-                                                        <Play className="w-12 h-12 text-white" />
-                                                    )}
-                                                </button>
-                                                {playingTrack === song.previewUrl && (
-                                                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-                                                        <div
-                                                            className="h-full bg-[#e68531] transition-all duration-100"
-                                                            style={{ width: `${progress}%` }}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <h3 className="font-medium text-lg truncate">{song.name}</h3>
-                                        </div>
+                                        <TrackCard
+                                            key={`${song.name}-${index}`}
+                                            song={song}
+                                            index={index}
+                                            playingTrack={playingTrack}
+                                            progress={progress}
+                                            onPlay={handlePlay}
+                                        />
                                     ))
                                 )}
                             </div>
@@ -371,7 +443,7 @@ export default function Jedii007Page() {
                             <h2 className="text-2xl font-bold mb-6">Upcoming Tracks</h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 {upcomingTracks.map((song, index) => (
-                                    <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
+                                    <div key={song.name} className="bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300">
                                         {song.image ? (
                                             <>
                                                 <div className="aspect-square relative rounded-lg overflow-hidden mb-3">
@@ -379,7 +451,9 @@ export default function Jedii007Page() {
                                                         src={song.image}
                                                         alt={song.name}
                                                         fill
+                                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                                                         className="object-cover"
+                                                        loading="lazy"
                                                     />
                                                 </div>
                                                 <h3 className="font-medium text-lg truncate">{song.name}</h3>
@@ -429,47 +503,8 @@ export default function Jedii007Page() {
                     {/* Horizontal separator line */}
                     <div className="w-full h-px bg-white/10 my-12" />
 
-                    {/* Instagram Posts Section */}
-                    <div className="space-y-6">
-                        <div className="flex items-center justify-between">
-                            <h2 className="text-2xl font-bold">Instagram Feed</h2>
-                            <a
-                                href="https://www.instagram.com/jedii.heic/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#e68531] hover:text-[#e68531]/80 transition-colors flex items-center gap-2"
-                            >
-                                <Instagram className="w-5 h-5" />
-                                <span>Follow on Instagram</span>
-                            </a>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 [&_.instagram-media]:!bg-transparent [&_.instagram-media]:!shadow-none [&_.instagram-media]:!border-none [&_.instagram-media]:!p-0 [&_.instagram-media]:!w-full [&_.instagram-media]:!max-w-none">
-                            {!instagramLoaded ? (
-                                // Loading skeleton
-                                [...Array(3)].map((_, index) => (
-                                    <div key={index} className="aspect-square bg-white/5 rounded-xl animate-pulse" />
-                                ))
-                            ) : (
-                                <>
-                                    <blockquote
-                                        className="instagram-media"
-                                        data-instgrm-permalink="https://www.instagram.com/p/DJWswVxIsp7/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                        data-instgrm-version="12"
-                                    ></blockquote>
-                                    <blockquote
-                                        className="instagram-media"
-                                        data-instgrm-permalink="https://www.instagram.com/p/DHLpgjPo31T/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                        data-instgrm-version="12"
-                                    ></blockquote>
-                                    <blockquote
-                                        className="instagram-media"
-                                        data-instgrm-permalink="https://www.instagram.com/p/DCxHOZuNMS7/?utm_source=ig_embed&amp;utm_campaign=loading"
-                                        data-instgrm-version="12"
-                                    ></blockquote>
-                                </>
-                            )}
-                        </div>
-                    </div>
+                    {/* Instagram Posts Section - Lazy loaded */}
+                    <InstagramFeed />
 
                     {/* Lyrics Section - Kept at the bottom */}
                     <LyricsSection songs={songLyrics} />
