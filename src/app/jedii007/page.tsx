@@ -294,8 +294,6 @@ export default function Jedii007Page() {
                                         width={192}
                                         height={192}
                                         className="object-cover w-full h-full"
-                                        priority
-                                        sizes="(max-width: 768px) 192px, 128px"
                                     />
                                 </div>
                             </div>
