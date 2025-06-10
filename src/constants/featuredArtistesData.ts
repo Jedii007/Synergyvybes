@@ -69,12 +69,12 @@ export const featuredArtists: Artist[] = [
         description: "A unique blend of traditional and contemporary themes in this striking piece.",
         type: "image"
       },
-      {
-        image: "/spotlight/Fashion Sculptures.jpg",
-        title: "Fashion Sculptures",
-        description: "Innovative sculptures that bridge the gap between fashion and art.",
-        type: "image"
-      },
+      // {
+      //   image: "/spotlight/Fashion Sculptures.jpg",
+      //   title: "Fashion Sculptures",
+      //   description: "Innovative sculptures that bridge the gap between fashion and art.",
+      //   type: "image"
+      // },
       {
         image: "/spotlight/Growing Blocks.jpg",
         title: "Growing Blocks",
