@@ -56,12 +56,12 @@ export function PopupWidget() {
             </Link>
 
             <Link
-              href="/artist-spotlight"
+              href="/artistes"
               className="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors text-white"
               onClick={() => setIsOpen(false)}
             >
               <Sparkles className="h-5 w-5 text-[#e68531]" />
-              <span>Artist Spotlight</span>
+              <span>Artistes</span>
             </Link>
 
             {/* Contact link removed */}

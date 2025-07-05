@@ -71,9 +71,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-site-verification',
-  },
+  // verification: {
+  //   google: 'your-google-site-verification',
+  // },
 };
 
 export default function RootLayout({
@@ -88,8 +88,16 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#e68531" />
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2541871874971595"
+          crossOrigin="anonymous"
+        ></script>
       </head>
-      <body className={`${saira.className} dark:text-gray-100 min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] bg-fixed`}>
+      <body
+        className={`${saira.className} dark:text-gray-100 min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] bg-fixed`}
+      >
         <ThemeProvider attribute="class" defaultTheme="dark">
           <LoadingProvider>
             <SidebarProvider>
@@ -112,6 +120,28 @@ export default function RootLayout({
                           </Link>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
+                          <Link href="/artistes" className="w-full">
+                            <SidebarMenuButton
+                              className={sidebarButtonStyles}
+                              tooltip="Artistes"
+                            >
+                              <Users className="h-8 w-8" />
+                              <span>Artistes</span>
+                            </SidebarMenuButton>
+                          </Link>
+                        </SidebarMenuItem>
+                        {/* <SidebarMenuItem>
+                          <Link href="/vybetalks" className="w-full">
+                            <SidebarMenuButton
+                              className={sidebarButtonStyles}
+                              tooltip="VybeTalks"
+                            >
+                              <Sparkles className="h-8 w-8" />
+                              <span>VybeTalks</span>
+                            </SidebarMenuButton>
+                          </Link>
+                        </SidebarMenuItem> */}
+                        <SidebarMenuItem>
                           <Link href="/about" className="w-full">
                             <SidebarMenuButton
                               className={sidebarButtonStyles}
@@ -119,17 +149,6 @@ export default function RootLayout({
                             >
                               <Users className="h-8 w-8" />
                               <span>About</span>
-                            </SidebarMenuButton>
-                          </Link>
-                        </SidebarMenuItem>
-                        <SidebarMenuItem>
-                          <Link href="/artist-spotlight" className="w-full">
-                            <SidebarMenuButton
-                              className={sidebarButtonStyles}
-                              tooltip="Artist Spotlight"
-                            >
-                              <Sparkles className="h-8 w-8" />
-                              <span>Artist Spotlight</span>
                             </SidebarMenuButton>
                           </Link>
                         </SidebarMenuItem>

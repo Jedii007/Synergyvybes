@@ -6,6 +6,18 @@ import Link from "next/link";
 import { useState } from "react";
 import { InstagramIcon, YoutubeIcon } from "lucide-react";
 
+// Custom TikTok Icon Component
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg 
+    className={className} 
+    viewBox="0 0 24 24" 
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-.88-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+  </svg>
+);
+
 export default function AboutPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -25,7 +37,7 @@ export default function AboutPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -43,7 +55,7 @@ export default function AboutPage() {
           subject: `New Contact Form Submission: ${formData.reason}`,
         })
       });
-      
+
       const result = await response.json();
       if (result.success) {
         setSubmitStatus({
@@ -108,25 +120,21 @@ export default function AboutPage() {
           <h1 className="text-5xl font-extrabold tracking-tight mb-4">
             About <span className="text-[#e68531]">Synergyvybes</span>
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            A creative sanctuary where artists and visionaries connect, collaborate, and showcase their brilliance.
-          </p>
+
         </div>
 
         {/* About Description */}
-        <div className="prose prose-invert prose-lg mb-12 max-w-3xl mx-auto text-gray-200">
-          <p>
-            Welcome to <strong>Synergyvybes</strong>, a platform dedicated to celebrating creative energy in all its forms.
-            We believe in the power of collaboration and the magic that sparks when creative minds unite.
+        <section className="max-w-3xl mx-auto text-center mb-12">
+          <p className="text-lg md:text-xl text-gray-300 mb-6">
+            SynergyVybes is a creative agency and vibrant collective dedicated to elevating music, art, and brands across Africa and beyond. We believe in the power of collaboration and creativity to spark change and drive culture forward. Our team brings together passionate artists, strategists, and creators to deliver exceptional results for our clients and community.
           </p>
-          <p>
-            Our mission is to provide a space where artists, musicians, and visionaries can thrive — a home to share their work,
-            inspire others, and cultivate a growing audience that values authentic expression.
+          <p className="text-lg md:text-xl text-gray-300 mb-6">
+            As a full-service creative agency, we offer web development, graphics design, videography, branding & strategy, social media management, and content creation. Whether you're an artist, entrepreneur, or organization, we help you stand out and bring your vision to life.
           </p>
-          <p>
-            Whether you're a seasoned creator or stepping into your artistic journey, <strong>Synergyvybes</strong> is your digital playground for connection, exposure, and elevation.
+          <p className="text-lg md:text-xl text-gray-300">
+            Let's create something extraordinary together.
           </p>
-        </div>
+        </section>
 
         {/* Contact Section */}
         <div id="contact" className="mt-16 mb-16">
@@ -140,11 +148,11 @@ export default function AboutPage() {
                   {submitStatus.message}
                 </div>
               )}
-              
+
               <form onSubmit={handleSubmit} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 space-y-6">
                 {/* This hidden field is needed for Web3Forms to work */}
                 <input type="hidden" name="access_key" value="ff9892f9-0126-4bab-aecb-33e7cbdad5f5" />
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -260,6 +268,14 @@ export default function AboutPage() {
                       className="text-gray-400 hover:text-[#e68531] transition-colors"
                     >
                       <InstagramIcon className="w-6 h-6" />
+                    </a>
+                    <a
+                      href="https://www.tiktok.com/@synergyvybes"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-[#e68531] transition-colors"
+                    >
+                      <TikTokIcon className="w-6 h-6" />
                     </a>
 
                     {/* <a

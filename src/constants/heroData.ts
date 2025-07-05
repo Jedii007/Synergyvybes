@@ -21,5 +21,12 @@ export const heroData = {
       role: "Artiste, Model",
       country: "Gambia, Sierra Leone",
     },
+    {
+      title: "Chinaeme",
+      image: "/chinaeme/Screenshot.png",
+      href: "/chinaeme",
+      role: "Artiste",
+      country: "Gambia,Nigeria",
+    },
   ],
 };

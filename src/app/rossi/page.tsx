@@ -38,6 +38,18 @@ declare global {
   }
 }
 
+// Custom TikTok Icon Component
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg 
+    className={className} 
+    viewBox="0 0 24 24" 
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-.88-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+  </svg>
+);
+
 export default function RossiPage() {
   const [showAllTracks, setShowAllTracks] = useState(false);
   const [playingTrack, setPlayingTrack] = useState<string | null>(null);
@@ -178,8 +190,16 @@ export default function RossiPage() {
             <a
               href="https://www.instagram.com/r0ssi.sbw/"
               className="text-white hover:text-[#e68531] transition-colors"
+              aria-label="Instagram"
             >
               <Instagram className="w-6 h-6" />
+            </a>
+            <a
+              href="https://www.tiktok.com/@sadboyrossi"
+              className="text-white hover:text-[#e68531] transition-colors"
+              aria-label="TikTok"
+            >
+              <TikTokIcon className="w-6 h-6" />
             </a>
             {/* <a
               href="#"
@@ -190,10 +210,15 @@ export default function RossiPage() {
             <a
               href="https://music.youtube.com/channel/UCHB4XI72i_zoiZZq3AsYc6A?si=7wnOvF3-rrBIjZ5Q"
               className="text-white hover:text-[#e68531] transition-colors"
+              aria-label="YouTube"
             >
               <Youtube className="w-6 h-6" />
             </a>
-            <a href="https://linktr.ee/Synergyvybes" className="text-white hover:text-[#e68531] transition-colors">
+            <a
+              href="https://linktr.ee/Synergyvybes"
+              className="text-white hover:text-[#e68531] transition-colors"
+              aria-label="Linktree"
+            >
               <Link2 className="w-6 h-6" />
             </a>
             {/* <a
@@ -230,7 +255,7 @@ export default function RossiPage() {
                       voice and authentic storytelling.
                     </p>
                     <div
-                      className={`relative transition-all duration-500 ${showFullBio ? 'max-h-[60vh] overflow-y-auto' : 'max-h-0 overflow-hidden'}`}
+                      className={`relative transition-all duration-500 ${showFullBio ? "max-h-[60vh] overflow-y-auto" : "max-h-0 overflow-hidden"}`}
                     >
                       <div className="space-y-4">
                         <p className="text-gray-300 leading-relaxed">
@@ -252,12 +277,12 @@ export default function RossiPage() {
                           the pursuit of art and sound.
                         </p>
                         <p className="text-gray-300 leading-relaxed">
-                          Rossi's music is a reflection of his diverse influences
-                          and experiences, blending traditional Nigerian sounds
-                          with contemporary global music trends. His ability to
-                          seamlessly merge different genres while maintaining his
-                          unique voice has earned him recognition in the
-                          industry and a growing fanbase.
+                          Rossi's music is a reflection of his diverse
+                          influences and experiences, blending traditional
+                          Nigerian sounds with contemporary global music trends.
+                          His ability to seamlessly merge different genres while
+                          maintaining his unique voice has earned him
+                          recognition in the industry and a growing fanbase.
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                           <div className="bg-white/5 rounded-lg p-4">
@@ -267,7 +292,10 @@ export default function RossiPage() {
                             <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
                               <li>2022: Recorded "2:16"</li>
                               <li>2023: Joined Synergyvybes</li>
-                              <li>2023: Released first official single "2:16" under Synergyvybes</li>
+                              <li>
+                                2023: Released first official single "2:16"
+                                under Synergyvybes
+                              </li>
                               <li>2024: Released debut album "Afro-5k"</li>
                             </ul>
                           </div>
@@ -366,52 +394,52 @@ export default function RossiPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {loading
                   ? // Loading skeleton
-                  [...Array(3)].map((_, index) => (
-                    <div
-                      key={index}
-                      className="bg-white/5 backdrop-blur-sm rounded-xl p-4 animate-pulse"
-                    >
-                      <div className="aspect-square bg-white/10 rounded-lg mb-3" />
-                      <div className="h-6 bg-white/10 rounded w-3/4 mb-2" />
-                      <div className="h-4 bg-white/10 rounded w-1/2" />
-                    </div>
-                  ))
-                  : displayedSongs.map((song, index) => (
-                    <div
-                      key={index}
-                      className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300"
-                    >
-                      <div className="aspect-square relative rounded-lg overflow-hidden mb-3">
-                        <Image
-                          src={song.artworkUrl}
-                          alt={song.name}
-                          fill
-                          className="object-cover"
-                        />
-                        <button
-                          onClick={() => handlePlay(song.previewUrl)}
-                          className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          {playingTrack === song.previewUrl ? (
-                            <Pause className="w-12 h-12 text-[#e68531]" />
-                          ) : (
-                            <Play className="w-12 h-12 text-white" />
-                          )}
-                        </button>
-                        {playingTrack === song.previewUrl && (
-                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
-                            <div
-                              className="h-full bg-[#e68531] transition-all duration-100"
-                              style={{ width: `${progress}%` }}
-                            />
-                          </div>
-                        )}
+                    [...Array(3)].map((_, index) => (
+                      <div
+                        key={index}
+                        className="bg-white/5 backdrop-blur-sm rounded-xl p-4 animate-pulse"
+                      >
+                        <div className="aspect-square bg-white/10 rounded-lg mb-3" />
+                        <div className="h-6 bg-white/10 rounded w-3/4 mb-2" />
+                        <div className="h-4 bg-white/10 rounded w-1/2" />
                       </div>
-                      <h3 className="font-medium text-lg truncate">
-                        {song.name}
-                      </h3>
-                    </div>
-                  ))}
+                    ))
+                  : displayedSongs.map((song, index) => (
+                      <div
+                        key={index}
+                        className="group bg-white/5 backdrop-blur-sm rounded-xl p-4 hover:bg-white/10 transition-all duration-300"
+                      >
+                        <div className="aspect-square relative rounded-lg overflow-hidden mb-3">
+                          <Image
+                            src={song.artworkUrl}
+                            alt={song.name}
+                            fill
+                            className="object-cover"
+                          />
+                          <button
+                            onClick={() => handlePlay(song.previewUrl)}
+                            className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            {playingTrack === song.previewUrl ? (
+                              <Pause className="w-12 h-12 text-[#e68531]" />
+                            ) : (
+                              <Play className="w-12 h-12 text-white" />
+                            )}
+                          </button>
+                          {playingTrack === song.previewUrl && (
+                            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/20">
+                              <div
+                                className="h-full bg-[#e68531] transition-all duration-100"
+                                style={{ width: `${progress}%` }}
+                              />
+                            </div>
+                          )}
+                        </div>
+                        <h3 className="font-medium text-lg truncate">
+                          {song.name}
+                        </h3>
+                      </div>
+                    ))}
               </div>
             </div>
 
@@ -440,7 +468,9 @@ export default function RossiPage() {
                       </>
                     ) : (
                       <div className="aspect-square flex items-center justify-center rounded-lg bg-white/10">
-                        <h3 className="font-medium text-lg text-center px-2">{song.name}</h3>
+                        <h3 className="font-medium text-lg text-center px-2">
+                          {song.name}
+                        </h3>
                       </div>
                     )}
                   </div>
@@ -509,23 +539,26 @@ export default function RossiPage() {
               {!instagramLoaded ? (
                 // Loading skeleton
                 [...Array(3)].map((_, index) => (
-                  <div key={index} className="aspect-square bg-white/5 rounded-xl animate-pulse" />
+                  <div
+                    key={index}
+                    className="aspect-square bg-white/5 rounded-xl animate-pulse"
+                  />
                 ))
               ) : (
                 <>
                   <blockquote
                     className="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/DGx3Kz7t4-O/?utm_source=ig_embed&amp;utm_campaign=loading"
-                    data-instgrm-version="12"
-                  ></blockquote>
-                  <blockquote
-                    className="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/CokeybctbCy/?utm_source=ig_embed&amp;utm_campaign=loading"
-                    data-instgrm-version="12"
-                  ></blockquote>
-                  <blockquote
-                    className="instagram-media"
                     data-instgrm-permalink="https://www.instagram.com/p/DKAYFk2KIzX/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-version="12"
+                  ></blockquote>
+                  <blockquote
+                    className="instagram-media"
+                    data-instgrm-permalink="https://www.instagram.com/p/DHJm5ZLuydI/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-version="12"
+                  ></blockquote>
+                  <blockquote
+                    className="instagram-media"
+                    data-instgrm-permalink="https://www.instagram.com/p/DKfPmSPqC51/?utm_source=ig_embed&amp;utm_campaign=loading"
                     data-instgrm-version="12"
                   ></blockquote>
                   {/* DJ7OFsOqgLh */}

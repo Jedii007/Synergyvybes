@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useLoading } from "@/context/LoadingContext";
 import { heroData } from "@/constants/heroData";
 import { CARD_ANIMATION_DELAY, CARD_ANIMATION_DURATION } from "@/constants/styles";
-import SlimSpotlightCard from "./SlimSpotlightCard";
+
 import "@/styles/hero-mobile.css";
 
 export default function Hero() {
@@ -36,14 +36,14 @@ export default function Hero() {
   }, [isLoading]); // Re-run when loading state changes
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-6 min-h-screen w-full hero-container">
-      {/* Main artist cards - take up 3/4 of the space */}
-      <div className="lg:col-span-3 flex flex-col md:flex-row gap-4 hero-cards-container">
+    <div className="p-2 md:p-4 h-screen w-full hero-container flex items-center">
+      {/* 1x4 Horizontal Row of cards - Fill Screen */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 w-full h-full">
         {heroData.cards.map((card, index) => (
           <Link
             key={index}
             href={card.href}
-            className={`relative flex-1 h-[90vh] hero-card rounded-3xl overflow-hidden transition-all duration-${CARD_ANIMATION_DURATION} hover:scale-[1.02] bg-gray-200 cursor-pointer
+            className={`relative h-full hero-card rounded-2xl overflow-hidden transition-all duration-${CARD_ANIMATION_DURATION} hover:scale-[1.02] bg-gray-200 cursor-pointer
               ${visibleCards.includes(index)
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-4'}`}
@@ -52,13 +52,17 @@ export default function Hero() {
               src={card.image}
               alt={card.title}
               fill
-              className={`object-cover brightness-110 ${card.title === "Jedii007" ? "object-[36%] translate-y-[0%]" : ""} ${card.title === "Skippy on Fir3" ? "object-[45%] translate-y-[0%]" : ""}`}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
+              className={`object-cover brightness-110 ${
+                card.title === "Jedii007" ? "object-[36%] translate-y-[0%]" : ""
+              } ${
+                card.title === "Skippy on Fir3" ? "object-[45%] translate-y-[0%]" : ""
+              }`}
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              priority={index < 2}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6 md:p-8 z-10">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-4 md:p-6 lg:p-8 z-10">
               <h1
-                className={`text-white text-3xl md:text-4xl font-bold mb-2 [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500
+                className={`text-white text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)] transition-all duration-500
                   ${visibleTexts.includes(index)
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 -translate-x-4'}`}
@@ -66,25 +70,24 @@ export default function Hero() {
                 {card.title}
               </h1>
               <div
-                className={`text-[#e68531] text-sm md:text-lg font-medium [text-shadow:_0_1px_2px_rgba(0,0,0,0.3)] transition-all duration-500 delay-100
+                className={`text-[#e68531] text-sm md:text-base lg:text-lg font-medium [text-shadow:_0_1px_2px_rgba(0,0,0,0.3)] transition-all duration-500 delay-100
                   ${visibleTexts.includes(index)
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 -translate-x-4'}`}
               >
                 <p className="drop-shadow-md">{card.role}</p>
-                <p className="text-white/90 [text-shadow:_0_1px_2px_rgba(0,0,0,0.3)] transition-all duration-500 delay-200
-                  ${visibleTexts.includes(index)
-                    ? 'opacity-100 translate-x-0'
-                    : 'opacity-0 -translate-x-4'}">{card.country}</p>
+                <p
+                  className={`text-white/90 text-xs md:text-sm lg:text-base [text-shadow:_0_1px_2px_rgba(0,0,0,0.3)] transition-all duration-500 delay-200
+                    ${visibleTexts.includes(index)
+                      ? 'opacity-100 translate-x-0'
+                      : 'opacity-0 -translate-x-4'}`}
+                >
+                  {card.country}
+                </p>
               </div>
             </div>
           </Link>
         ))}
-      </div>
-
-      {/* Slim spotlight card - takes up 1/4 of the space */}
-      <div className={`lg:col-span-1 transition-all duration-${CARD_ANIMATION_DURATION} spotlight-container ${visibleCards.length > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <SlimSpotlightCard />
       </div>
     </div>
   );

@@ -29,6 +29,18 @@ declare global {
     }
 }
 
+// Custom TikTok Icon Component
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg 
+    className={className} 
+    viewBox="0 0 24 24" 
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-.88-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+  </svg>
+);
+
 type Song = {
     name: string;
     artworkUrl: string;
@@ -269,8 +281,11 @@ export default function Jedii007Page() {
 
                     {/* Social Media Icons */}
                     <div className="flex items-center gap-4">
-                        <a href="https://www.instagram.com/jedii.heic/" className="text-white hover:text-[#e68531] transition-colors" aria-label="Instagram">
+                        <a href="https://www.instagram.com/jedii.wtf/" className="text-white hover:text-[#e68531] transition-colors" aria-label="Instagram">
                             <Instagram className="w-6 h-6" />
+                        </a>
+                        <a href="https://www.tiktok.com/@Jedii.mp4" className="text-white hover:text-[#e68531] transition-colors" aria-label="TikTok">
+                            <TikTokIcon className="w-6 h-6" />
                         </a>
                         <a href="https://x.com/jedii_txt" className="text-white hover:text-[#e68531] transition-colors" aria-label="Twitter">
                             <Twitter className="w-6 h-6" />

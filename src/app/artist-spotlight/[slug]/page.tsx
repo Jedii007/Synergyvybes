@@ -4,37 +4,21 @@ import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, notFound } from "next/navigation";
-import { featuredArtists } from "@/constants/featuredArtistesData";
 import WorkModal from "@/components/WorkModal";
 import { Suspense } from "react";
+import { client } from '@/sanity/lib/client';
+import { blogPostBySlugQuery, artistSpotlightBySlugQuery } from '@/sanity/lib/queries';
+import { urlFor } from '@/sanity/lib/image';
+import { PortableText } from '@portabletext/react';
+import { BlogPost, ArtistSpotlight, ShowcaseItem, ExhibitionYear, ExhibitionEvent, InterviewQuestion, Interview } from '@/types/sanity';
 
+// Legacy interface for compatibility with WorkModal
 interface Work {
   image: string;
   title: string;
   type: "image" | "audio";
   description: string;
   audioUrl?: string;
-}
-
-interface ExhibitionEvent {
-  title: string;
-  location?: string;
-  description?: string;
-}
-
-interface ExhibitionYear {
-  year: string;
-  events: ExhibitionEvent[];
-}
-
-interface InterviewQuestion {
-  q: string;
-  a: string;
-}
-
-interface Interview {
-  quote: string;
-  questions: InterviewQuestion[];
 }
 
 // Separate client component for the work grid
@@ -72,12 +56,12 @@ const WorkGrid = ({ works, onWorkSelect }: { works: Work[], onWorkSelect: (work:
 const ExhibitionsTimeline = ({ exhibitions }: { exhibitions: ExhibitionYear[] }) => (
   <div className="space-y-8">
     {exhibitions.map((year, index) => (
-      <div key={index} className="relative pl-8 border-l-2 border-[#e68531]">
+      <div key={year._key || index} className="relative pl-8 border-l-2 border-[#e68531]">
         <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#e68531]"></div>
         <h3 className="text-2xl font-bold mb-4">{year.year}</h3>
         <ul className="space-y-4">
           {year.events.map((event, eventIndex) => (
-            <li key={eventIndex} className="pl-4">
+            <li key={event._key || eventIndex} className="pl-4">
               <h4 className="font-semibold text-lg">{event.title}</h4>
               {event.location && (
                 <p className="text-gray-600 dark:text-gray-300">{event.location}</p>
@@ -106,11 +90,109 @@ const InterviewSection = ({ interview }: { interview: Interview | null }) => {
       </div>
       <div className="space-y-6">
         {interview.questions.map((item, index) => (
-          <div key={index}>
-            <h3 className="text-lg font-bold mb-2">{item.q}</h3>
-            <p className="text-gray-700 dark:text-gray-300">{item.a}</p>
+          <div key={item._key || index}>
+            <h3 className="text-lg font-bold mb-2">{item.question}</h3>
+            <p className="text-gray-700 dark:text-gray-300">{item.answer}</p>
           </div>
         ))}
+      </div>
+    </div>
+  );
+};
+
+// Component to render blog post content
+const BlogPostContent = ({ blogPost }: { blogPost: BlogPost }) => {
+  return (
+    <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white">
+      <div className="max-w-4xl mx-auto">
+        <article className="bg-white/5 backdrop-blur-sm rounded-2xl p-8">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+              {blogPost.title}
+            </h1>
+            <div className="flex items-center gap-4 text-sm text-gray-400 mb-6">
+              <span className="font-semibold text-[#e68531]">{blogPost.author}</span>
+              <span>•</span>
+              <span>{new Date(blogPost.publishedAt).toLocaleDateString()}</span>
+              {blogPost.mood && (
+                <>
+                  <span>•</span>
+                  <span>{blogPost.mood}</span>
+                </>
+              )}
+              {blogPost.readTime && (
+                <>
+                  <span>•</span>
+                  <span>{blogPost.readTime} min read</span>
+                </>
+              )}
+            </div>
+            {blogPost.tags && blogPost.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {blogPost.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-[#e68531]/20 text-[#e68531] rounded-full text-sm"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Main Image */}
+          {blogPost.mainImage && (
+            <div className="mb-8 rounded-xl overflow-hidden">
+              <Image
+                src={urlFor(blogPost.mainImage).width(800).height(400).url()}
+                alt={blogPost.title}
+                width={800}
+                height={400}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          )}
+
+          {/* YouTube Video */}
+          {blogPost.youtubeUrl && (
+            <div className="aspect-w-16 aspect-h-9 w-full rounded-xl overflow-hidden mb-8">
+              <iframe
+                src={blogPost.youtubeUrl.replace('watch?v=', 'embed/')}
+                title={blogPost.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          )}
+
+          {/* Content */}
+          <div className="prose prose-lg prose-invert max-w-none">
+            <PortableText value={blogPost.body} />
+          </div>
+        </article>
+
+        {/* Call to Action */}
+        <div className="mt-12 bg-gradient-to-r from-[#e68531]/90 to-[#e68531]/70 rounded-xl p-8 text-white text-center">
+          <h2 className="text-3xl font-bold mb-4">Explore More Content</h2>
+          <p className="max-w-2xl mx-auto mb-6">
+            Discover more artist spotlights, updates, and creative content from our community.
+          </p>
+          <Link
+            href="/whats-new"
+            className="inline-block px-8 py-3 bg-white text-[#e68531] font-bold rounded-lg hover:bg-gray-100 transition-colors mr-4"
+          >
+            View All Posts
+          </Link>
+          <Link
+            href="/artist-spotlight"
+            className="inline-block px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-[#e68531] transition-colors"
+          >
+            Artist Spotlights
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -119,24 +201,19 @@ const InterviewSection = ({ interview }: { interview: Interview | null }) => {
 export default function ArtistSpotlightPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const [blogPost, setBlogPost] = useState<BlogPost | null>(null);
+  const [artist, setArtist] = useState<ArtistSpotlight | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Memoize artist lookup to prevent unnecessary recalculations
-  const artist = useMemo(() =>
-    featuredArtists.find(artist => artist.slug === slug),
-    [slug]
-  );
-
-  // If artist not found, show 404
-  if (!artist) {
-    notFound();
-  }
-
+  // Initialize state hooks early - before any conditional returns
   const [activeTab, setActiveTab] = useState("work");
   const [modalState, setModalState] = useState({
     isOpen: false,
     selectedWork: {
-      ...artist.showcase[0],
-      type: artist.showcase[0].type as "image" | "audio"
+      image: "",
+      title: "",
+      type: "image" as "image" | "audio",
+      description: ""
     }
   });
 
@@ -152,9 +229,19 @@ export default function ArtistSpotlightPage() {
 
   // Memoize tab content to prevent unnecessary re-renders
   const tabContent = useMemo(() => {
+    if (!artist) return null;
+    
     switch (activeTab) {
       case "work":
-        return <WorkGrid works={artist.showcase} onWorkSelect={handleWorkSelect} />;
+        // Transform ShowcaseItem[] to Work[] for compatibility
+        const transformedWorks: Work[] = artist.showcase.map(item => ({
+          image: urlFor(item.image).url(),
+          title: item.title,
+          type: item.type,
+          description: item.description,
+          audioUrl: item.audioUrl
+        }));
+        return <WorkGrid works={transformedWorks} onWorkSelect={handleWorkSelect} />;
       case "exhibitions":
         return <ExhibitionsTimeline exhibitions={artist.exhibitions} />;
       case "about":
@@ -170,7 +257,7 @@ export default function ArtistSpotlightPage() {
               >
                 Dxd Interview
               </a>
-              {Object.entries(artist.socialLinks).map(([platform, handle]) => (
+              {artist.socialLinks && Object.entries(artist.socialLinks).map(([platform, handle]) => (
                 <a
                   key={platform}
                   href={`https://www.instagram.com/${handle}`}
@@ -189,6 +276,46 @@ export default function ArtistSpotlightPage() {
     }
   }, [activeTab, artist]);
 
+  // Fetch blog post if no artist found
+  useEffect(() => {
+    async function fetchBlogPost() {
+      if (!artist) {
+        try {
+          const post = await client.fetch<BlogPost>(blogPostBySlugQuery, { slug });
+          setBlogPost(post);
+        } catch (error) {
+          console.error('Error fetching blog post:', error);
+          setBlogPost(null);
+        }
+      }
+      setLoading(false);
+    }
+
+    fetchBlogPost();
+  }, [artist, slug]);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#e68531] mx-auto mb-4"></div>
+          <p className="text-xl">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If blog post found, render blog post content
+  if (blogPost) {
+    return <BlogPostContent blogPost={blogPost} />;
+  }
+
+  // If neither artist nor blog post found, show 404
+  if (!artist) {
+    notFound();
+  }
+
   return (
     <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white">
       <WorkModal
@@ -202,7 +329,7 @@ export default function ArtistSpotlightPage() {
         <div className="mb-16 text-center">
           <h1 className="text-5xl font-bold mb-4">
             <span className="text-white">Artist Spotlight: </span>
-            <span className="text-[#e68531]">{artist.name}</span>
+            <span className="text-[#e68531]">{artist?.name}</span>
           </h1>
           <p className="max-w-3xl mx-auto text-lg text-gray-600 dark:text-gray-300">
             Celebrating extraordinary creative minds who are pushing boundaries and
@@ -222,8 +349,12 @@ export default function ArtistSpotlightPage() {
                 {/* Artist Hero Section */}
                 <div className="relative h-96 w-full">
                   <Image
-                    src={artist.wideImage || artist.showcase[0].image}
-                    alt={artist.name + "'s work"}
+                    src={
+                      artist?.wideImage ? urlFor(artist.wideImage).url() :
+                      artist?.showcase?.[0]?.image ? urlFor(artist.showcase[0].image).url() :
+                      ""
+                    }
+                    alt={artist?.name + "'s work" || "Artist work"}
                     fill
                     sizes="100vw"
                     priority
@@ -232,8 +363,8 @@ export default function ArtistSpotlightPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
                     <div className="p-6">
-                      <h2 className="text-3xl font-bold text-white mb-2">{artist.name}</h2>
-                      <p className="text-gray-200">{artist.medium}</p>
+                      <h2 className="text-3xl font-bold text-white mb-2">{artist?.name}</h2>
+                      <p className="text-gray-200">{artist?.medium}</p>
                     </div>
                   </div>
                 </div>
