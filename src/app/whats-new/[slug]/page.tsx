@@ -289,12 +289,14 @@ export default function WhatsNewPost({ params }: { params: { slug: string } }) {
               >
                 View All Posts
               </Link>
+              {/*
               <Link
                 href="/artist-spotlight"
                 className="inline-block px-6 md:px-8 py-3 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-[#e68531] transition-colors"
               >
                 Artist Spotlights
               </Link>
+              */}
             </div>
           </div>
 
