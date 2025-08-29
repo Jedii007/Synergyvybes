@@ -71,17 +71,17 @@ const InstagramFeed = () => {
             <>
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/DLFz90EIlqv/?utm_source=ig_embed&amp;utm_campaign=loading"
+                data-instgrm-permalink="https://www.instagram.com/p/DL2jy6KIPQK/?utm_source=ig_embed&amp;utm_campaign=loading"
                 data-instgrm-version="12"
               ></blockquote>
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/DK7FJ3ko0W8/?utm_source=ig_embed&amp;utm_campaign=loading"
+                data-instgrm-permalink="https://www.instagram.com/p/DM3LWTfIs7p/?utm_source=ig_embed&amp;utm_campaign=loading"
                 data-instgrm-version="12"
               ></blockquote>
               <blockquote
                 className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/DLQIib3oN7b/?utm_source=ig_embed&amp;utm_campaign=loading"
+                data-instgrm-permalink="https://www.instagram.com/p/DMQZ1PFIMLS/?utm_source=ig_embed&amp;utm_campaign=loading"
                 data-instgrm-version="12"
               ></blockquote>
             </>
