@@ -75,7 +75,7 @@ export default function SynergyUpdates({ limit = 8 }: { limit?: number }) {
             let link = `/whats-new/${update.slug.current}`;
             
             // Use the main image from the blog post
-            let imageUrl = update.mainImage ? urlFor(update.mainImage).width(600).height(400).url() : null;
+            let imageUrl = update.mainImage ? urlFor(update.mainImage).width(600).fit('max').auto('format').url() : null;
 
             return (
               <Link

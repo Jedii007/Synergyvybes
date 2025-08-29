@@ -65,10 +65,37 @@ export const blogPostBySlugQuery = groq`
     author,
     publishedAt,
     excerpt,
-    mainImage,
+    mainImage{
+      ...,
+      asset->{
+        _id,
+        url,
+        metadata{
+          dimensions{
+            width,
+            height
+          }
+        }
+      }
+    },
     contentType,
     mood,
-    body,
+    body[]{
+      ...,
+      _type == 'image' => {
+        ...,
+        asset->{
+          _id,
+          url,
+          metadata{
+            dimensions{
+              width,
+              height
+            }
+          }
+        }
+      }
+    },
     readTime,
     tags,
     youtubeUrl

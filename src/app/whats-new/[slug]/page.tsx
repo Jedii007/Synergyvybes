@@ -119,22 +119,30 @@ const portableTextComponents = {
   },
   types: {
     // Handle images if you have them in your rich text
-    image: ({ value }: any) => (
-      <div className="my-8 rounded-xl overflow-hidden">
-        <Image
-          src={urlFor(value).width(800).height(400).url()}
-          alt={value.alt || ''}
-          width={800}
-          height={400}
-          className="w-full h-auto object-cover"
-        />
-        {value.alt && (
-          <p className="text-sm text-gray-400 mt-2 text-center italic">
-            {value.alt}
-          </p>
-        )}
-      </div>
-    ),
+    image: ({ value }: any) => {
+      const dims = value?.asset?.metadata?.dimensions;
+      const targetWidth = Math.min(1200, dims?.width || 1200);
+      const targetHeight = dims?.width && dims?.height ? Math.round(dims.height * (targetWidth / dims.width)) : 800;
+      const src = urlFor(value).width(targetWidth).fit('max').auto('format').url();
+      return (
+        <div className="my-8 rounded-xl">
+          <Image
+            src={src}
+            alt={value.alt || ''}
+            width={targetWidth}
+            height={targetHeight}
+            className="w-full h-auto object-contain"
+            sizes="(max-width: 768px) 100vw, 800px"
+            quality={85}
+          />
+          {value.alt && (
+            <p className="text-sm text-gray-400 mt-2 text-center italic">
+              {value.alt}
+            </p>
+          )}
+        </div>
+      );
+    },
     // Handle YouTube videos in rich text
     youtube: ({ value }: any) => (
       <div className="my-8">
@@ -240,14 +248,24 @@ export default function WhatsNewPost({ params }: { params: { slug: string } }) {
 
               {/* Main Image */}
               {blogPost.mainImage && (
-                <div className="mb-8 rounded-xl overflow-hidden">
-                  <Image
-                    src={urlFor(blogPost.mainImage).width(800).height(400).url()}
-                    alt={blogPost.title}
-                    width={800}
-                    height={400}
-                    className="w-full h-auto object-cover"
-                  />
+                <div className="mb-8 rounded-xl">
+                  {(() => {
+                    const dims = (blogPost as any)?.mainImage?.asset?.metadata?.dimensions;
+                    const targetWidth = Math.min(1200, dims?.width || 1200);
+                    const targetHeight = dims?.width && dims?.height ? Math.round(dims.height * (targetWidth / dims.width)) : 800;
+                    const src = urlFor(blogPost.mainImage as any).width(targetWidth).fit('max').auto('format').url();
+                    return (
+                      <Image
+                        src={src}
+                        alt={blogPost.title}
+                        width={targetWidth}
+                        height={targetHeight}
+                        className="w-full h-auto object-contain"
+                        sizes="(max-width: 768px) 100vw, 1000px"
+                        quality={85}
+                      />
+                    );
+                  })()}
                 </div>
               )}
 
