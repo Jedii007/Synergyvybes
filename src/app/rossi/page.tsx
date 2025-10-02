@@ -64,8 +64,8 @@ export default function RossiPage() {
   // Mock upcoming tracks
   const upcomingTracks = [
     {
-      name: "YX4L",
-      image: "/rossi/yxcov.jpeg",
+      name: "FC BOYZ",
+      image: "/rossi/FC.jpeg",
     },
     {
       name: "Coming-Soon",
@@ -553,7 +553,7 @@ export default function RossiPage() {
                   ></blockquote>
                   <blockquote
                     className="instagram-media"
-                    data-instgrm-permalink="https://www.instagram.com/p/DHJm5ZLuydI/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-permalink="https://www.instagram.com/p/DPO7ruRjA0W/?utm_source=ig_embed&amp;utm_campaign=loading"
                     data-instgrm-version="12"
                   ></blockquote>
                   <blockquote
