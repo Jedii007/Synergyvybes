@@ -23,8 +23,7 @@ export const metadata: Metadata = {
   description: "A creative sanctuary where artists and visionaries connect, collaborate, and showcase their brilliance. Join our community of innovative creators.",
   icons: {
     icon: [
-      { url: '/favicon.svg' },
-      { url: '/synergySmall.png' }
+      { url: '/favicon.svg' }
     ]
   },
   keywords: ["creative collective", "artists", "music", "afro-fusion", "alté", "gambia", "sierra leone", "nigeria", "art", "music", "creative"],
@@ -44,20 +43,13 @@ export const metadata: Metadata = {
     siteName: 'Synergyvybes',
     title: 'Synergyvybes - Creative Collective',
     description: 'A creative sanctuary where artists and visionaries connect, collaborate, and showcase their brilliance.',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Synergyvybes Creative Collective',
-      },
-    ],
+    images: ['/Synergyvybes.png'],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Synergyvybes - Creative Collective',
     description: 'A creative sanctuary where artists and visionaries connect, collaborate, and showcase their brilliance.',
-    images: ['/twitter-image.jpg'],
+    images: ['/Synergyvybes.png'],
     creator: '@synergyvybes',
   },
   robots: {
@@ -85,7 +77,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#e68531" />
         {/* Google AdSense */}

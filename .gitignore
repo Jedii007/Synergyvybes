@@ -34,4 +34,13 @@ yarn-error.log*
 # vercel
 .vercel
 
-*.md
+# editors and local tooling
+/.vscode/
+/.idea/
+/.zencoder/
+
+# additional outputs
+/dist
+
+# extra debug logs
+pnpm-debug.log*
