@@ -173,12 +173,12 @@ Jedii`
   {
     id: 3,
     title: "Cigarettes",
-    lyrics: "This is where your lyrics would go.\nEach line break creates a new line.\n\nDouble line breaks create paragraphs."
+    lyrics: "On it😮‍💨"
   },
   {
     id: 4,
     title: "Leave",
-    lyrics: "This is where your lyrics would go.\nEach line break creates a new line.\n\nDouble line breaks create paragraphs."
+    lyrics: "On it😮‍💨"
   }
 ];
 
@@ -187,22 +187,22 @@ export const songLyricsRossi = [
   {
     id: 1,
     title: "YX4L",
-    lyrics: ``
+    lyrics: `On it😮‍💨`
   },
   {
     id: 2,
     title: "Assurance",
-    lyrics: `Soon`
+    lyrics: `On it😮‍💨`
   },
   {
     id: 3,
     title: "Earthq4ake",
-    lyrics: `Soon`
+    lyrics: `On it😮‍💨`
   },
   {
     id: 4,
     title: "Afro-5K",
-    lyrics: `Soon`
+    lyrics: `On it😮‍💨`
   }
 ];
 
@@ -210,22 +210,22 @@ export const songLyricsScipa = [
   {
     id: 1,
     title: "E Sharp!",
-    lyrics: ``
+    lyrics: `On it😮‍💨`
   },
   {
     id: 2,
     title: "Mask On",
-    lyrics: `Soon`
+    lyrics: `On it😮‍💨`
   },
   {
     id: 3,
     title: "Ryse",
-    lyrics: `Soon`
+    lyrics: `On it😮‍💨`
   },
   {
     id: 4,
     title: "Gloomy House",
-    lyrics: `Soon`
+    lyrics: `On it😮‍💨`
   }
 ];
 

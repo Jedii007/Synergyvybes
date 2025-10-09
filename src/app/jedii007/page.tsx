@@ -317,7 +317,7 @@ export default function Jedii007Page() {
                                     <h2 className="text-2xl font-bold mb-2">About Jedii007</h2>
                                     <div className="space-y-4">
                                         <p className="text-gray-300 leading-relaxed">
-                                            A multifaceted creative force hailing from Gambia and Sierra Leone, Jedii007 fuses West African heritage with contemporary global sounds. From early literary experiments and comic book ventures to exploring acting and eventually pioneering an Afro-fusion/alté sound, his journey is as diverse as it is innovative.
+                                            A multifaceted creative force hailing from The Gambia and Sierra Leone, Jedii007 fuses West African heritage with contemporary global sounds. From early literary experiments and comic book ventures to exploring acting and eventually pioneering an Afro-fusion/alté sound, his journey is as diverse as it is innovative.
                                         </p>
                                         <div className={`relative transition-all duration-500 ${showFullBio ? 'max-h-[60vh] overflow-y-auto' : 'max-h-0 overflow-hidden'}`}>
                                             <div className="space-y-4">
