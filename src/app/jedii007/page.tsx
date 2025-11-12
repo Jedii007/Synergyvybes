@@ -129,15 +129,15 @@ export default function Jedii007Page() {
     // Memoize static data
     const upcomingTracks = useMemo(() => [
         {
-            name: "New Comer",
-            image: "/jedii/newcomer.jpg",
+            name: "Jackie Chan",
+            image: "",
         },
         {
-            name: "Bad Mixes II",
-            image: "/jedii/Bad Mixes Cover.jpg",
+            name: "TBA",
+            image: "",
         },
         {
-            name: "Speed-dial",
+            name: "TBA",
             image: "",
         }
     ], []);
@@ -326,7 +326,7 @@ export default function Jedii007Page() {
                                                 </p>
                                                 <p className="text-gray-300 leading-relaxed">
                                                     A turning point came with the discovery of Show Dem Camp's "Tropicana," which opened the door to the alté scene—introducing him to artists like, Santi, Lady Donli, Tay Iwar, Fasina, and Odunsi. This fusion of sounds birthed an innovative musical identity that is both experimental and deeply rooted in West African culture.
-                                                </p>
+                                                </p> 
                                                 <p className="text-gray-300 leading-relaxed">
                                                     Jedii now leads Synergy, a rebranded creative collective dedicated to mentoring emerging talents and redefining Afro-fusion.
                                                 </p>

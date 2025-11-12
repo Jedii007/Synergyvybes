@@ -113,27 +113,29 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white">
+    <div className="min-h-screen p-8 bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] text-white">
       <div className="max-w-5xl mx-auto">
         {/* Hero Header */}
         <div className="text-center mb-16 animate-fadeInUp">
           <h1 className="text-5xl font-extrabold tracking-tight mb-4">
-            About <span className="text-[#e68531]">Synergyvybes</span>
+            About <span className="text-[#e68531]">SynergyVybes</span>
           </h1>
-
         </div>
 
         {/* About Description */}
         <section className="max-w-3xl mx-auto text-center mb-12">
           <p className="text-lg md:text-xl text-gray-300 mb-6">
-            SynergyVybes is a creative agency and vibrant collective dedicated to elevating music, art, and brands across Africa and beyond. We believe in the power of collaboration and creativity to spark change and drive culture forward. Our team brings together passionate artists, strategists, and creators to deliver exceptional results for our clients and community.
+            SynergyVybes is a creative agency and collective shaping the future of music, art, and digital experiences across Africa and beyond. Based in The Gambia, we combine artistic vision with strategic thinking to help brands, creatives, and organizations express their identity with clarity and impact.
           </p>
           <p className="text-lg md:text-xl text-gray-300 mb-6">
-            As a full-service creative agency, we offer web development, graphics design, videography, branding & strategy, social media management, and content creation. Whether you're an artist, entrepreneur, or organization, we help you stand out and bring your vision to life.
+            Our team of designers, developers, and storytellers delivers high-quality solutions in web development, branding, content creation, videography, and digital strategy. Every project we take on reflects our belief that creativity and precision can coexist.
           </p>
-          <p className="text-lg md:text-xl text-gray-300">
-            Let's create something extraordinary together.
+          <p className="text-lg md:text-xl text-gray-300 mb-6">
+            Even this website was designed and developed in-house, reflecting the same attention to detail and passion we bring to every client project. Explore our {" "}
+            <Link href="/projects/sites" className="text-[#e68531] underline hover:opacity-90">web portfolio</Link>
+            {" "}to see how we bring ideas to life online.
           </p>
+          
         </section>
 
         {/* Contact Section */}
@@ -261,6 +263,14 @@ export default function AboutPage() {
 
                   <div className="flex items-center gap-4">
                     <span className="text-gray-400 text-sm">Follow us:</span>
+                     <a
+                      href="https://www.youtube.com/@Synergyvybes"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-[#e68531] transition-colors"
+                    >
+                      <YoutubeIcon className="w-6 h-6" />
+                    </a>
                     <a
                       href="https://instagram.com/synergyvybes"
                       target="_blank"
@@ -277,7 +287,7 @@ export default function AboutPage() {
                     >
                       <TikTokIcon className="w-6 h-6" />
                     </a>
-
+                  
                     {/* <a
                       href="https://youtube.com/@synergyvybes"
                       target="_blank"

@@ -209,3 +209,36 @@ export const artistSpotlightsWithLimitQuery = groq`
     tags
   }
 `
+
+// Media Queries
+export const mediaItemsQuery = groq`
+  *[_type == "media"] | order(publishedAt desc) {
+    _id,
+    title,
+    artistName,
+    host,
+    collaborators,
+    url,
+    platform,
+    description,
+    thumbnail,
+    publishedAt,
+    tags
+  }
+`
+
+export const mediaItemsWithLimitQuery = groq`
+  *[_type == "media"] | order(publishedAt desc) [0...$limit] {
+    _id,
+    title,
+    artistName,
+    host,
+    collaborators,
+    url,
+    platform,
+    description,
+    thumbnail,
+    publishedAt,
+    tags
+  }
+`
