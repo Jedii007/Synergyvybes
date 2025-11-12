@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { PopupWidget } from "@/components/PopupWidget";
 import { Sidebar, SidebarProvider, SidebarInset, SidebarTrigger, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { Home, Users, Sparkles } from "lucide-react";
+import { Home, Users, Info, Play } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -138,8 +138,19 @@ export default function RootLayout({
                               className={sidebarButtonStyles}
                               tooltip="About"
                             >
-                              <Users className="h-8 w-8" />
+                              <Info className="h-8 w-8" />
                               <span>About</span>
+                            </SidebarMenuButton>
+                          </Link>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                          <Link href="/media" className="w-full">
+                            <SidebarMenuButton
+                              className={sidebarButtonStyles}
+                              tooltip="Media"
+                            >
+                              <Play className="h-8 w-8" />
+                              <span>Media</span>
                             </SidebarMenuButton>
                           </Link>
                         </SidebarMenuItem>

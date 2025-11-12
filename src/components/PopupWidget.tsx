@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Home, Users, Sparkles, X, BookOpen } from "lucide-react";
+import { Home, Users, Sparkles, X, BookOpen, Info, Play } from "lucide-react";
 
 export function PopupWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,25 +51,25 @@ export function PopupWidget() {
               className="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors text-white"
               onClick={() => setIsOpen(false)}
             >
-              <Sparkles className="h-5 w-5 text-[#e68531]" />
+              <Users className="h-5 w-5 text-[#e68531]" />
               <span>Artistes</span>
             </Link>
 
-            <Link
-              href="/whats-new"
-              className="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors text-white"
-              onClick={() => setIsOpen(false)}
-            >
-              <BookOpen className="h-5 w-5 text-[#e68531]" />
-              <span>Blogs</span>
-            </Link>
             <Link
               href="/about"
               className="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors text-white"
               onClick={() => setIsOpen(false)}
             >
-              <Users className="h-5 w-5 text-[#e68531]" />
+              <Info className="h-5 w-5 text-[#e68531]" />
               <span>About</span>
+            </Link>
+            <Link
+              href="/media"
+              className="flex items-center gap-3 p-3 rounded-md hover:bg-white/10 transition-colors text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              <Play className="h-5 w-5 text-[#e68531]" />
+              <span>Media</span>
             </Link>
             {/* Contact link removed */}
           </div>
