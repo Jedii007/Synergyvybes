@@ -256,7 +256,7 @@ export default function AboutPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`px-6 py-3 text-white bg-[#e68531] rounded-md hover:bg-[#e68531]/90 transition-colors font-medium ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    className={`px-4 py-2 text-sm md:text-base md:px-6 md:py-3 text-white bg-[#e68531] rounded-md hover:bg-[#e68531]/90 transition-colors font-medium ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>

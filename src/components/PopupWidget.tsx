@@ -16,7 +16,7 @@ export function PopupWidget() {
       {/* Floating Button */}
       <button
         onClick={toggleMenu}
-        className="fixed z-40 flex items-center justify-center transition duration-300 bg-[#e68531] rounded-full shadow-lg right-5 bottom-5 w-14 h-14 focus:outline-none hover:bg-[#e6853196] focus:bg-[#e68531] ease"
+        className="fixed z-40 flex items-center justify-center transition duration-300 bg-[#e68531] rounded-full shadow-lg right-4 bottom-4 w-12 h-12 md:right-5 md:bottom-5 md:w-14 md:h-14 focus:outline-none hover:bg-[#e68531]/90 ease"
       >
         <span className="sr-only">Toggle Navigation</span>
         {isOpen ? (

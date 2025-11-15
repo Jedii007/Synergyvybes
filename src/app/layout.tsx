@@ -89,7 +89,7 @@ export default function RootLayout({
       <body
         className={`${saira.className} dark:text-gray-100 min-h-screen bg-gradient-to-br from-[#0f0c29] via-[#302b6300] to-[#24243e] bg-fixed`}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
           <LoadingProvider>
             <SidebarProvider>
               <LoadingSpinner />

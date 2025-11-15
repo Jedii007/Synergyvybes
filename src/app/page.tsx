@@ -13,11 +13,13 @@ export default function HomePage() {
         </section>
 
         {/* Hero/Welcome Section */}
-        <section className="w-full flex flex-col items-center justify-center py-6 bg-gradient-to-b from-[#0f0c29] to-transparent">
-          <h1 className="text-4xl md:text-6xl font-bold mb-3 text-center">Welcome to SynergyVybes</h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-4 text-center max-w-2xl">
-            Discover, connect, and celebrate the vibrant world of music and artistry across Africa and beyond.
-          </p>
+        <section className="w-full px-4 md:px-6 flex flex-col items-center justify-center py-6 bg-gradient-to-b from-[#0f0c29] to-transparent">
+          <div className="w-full max-w-3xl">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-3 text-center">Welcome to SynergyVybes</h1>
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 text-center">
+              Discover, connect, and celebrate the vibrant world of music and artistry across Africa and beyond.
+            </p>
+          </div>
         </section>
 
         {/* Ad Placement 1 */}
