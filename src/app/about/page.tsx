@@ -252,7 +252,7 @@ export default function AboutPage() {
                   </label>
                 </div>
 
-                <div className="flex justify-between items-center mt-6">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mt-6">
                   <button
                     type="submit"
                     disabled={isSubmitting}
